@@ -7,9 +7,11 @@ public class BackgroudScripts : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
     private float height, width;
-    private float speed = 0f;
-    private float startTime = 0f;
+    private float speed = 0;
+    private float initial_speed = -2f;
+    private float passed_time = 0f;
     private float acceleration = -1f;
+    private Score scoreManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +24,14 @@ public class BackgroudScripts : MonoBehaviour
 
     }
 
+    void Awake()
+    {
+        scoreManager = GameObject.FindObjectOfType<Score>();
+    }
+
     void UpdateVelocity() {
-        startTime += Time.deltaTime;
-        speed = -2 + acceleration * startTime * startTime / 2;
+        passed_time += Time.deltaTime;
+        speed = initial_speed + acceleration * passed_time * passed_time / 2;
         rb.velocity = new Vector2(0, speed);
     }
 
@@ -37,10 +44,16 @@ public class BackgroudScripts : MonoBehaviour
         }
         
         UpdateVelocity();
+        scoreManager.UpdateScore(calculateScore());
     }
 
     private void Reposition() {
         Vector2 vector = new Vector2(0, height * 2f);
         transform.position = (Vector2) transform.position + vector;
+    }
+
+    private int calculateScore()
+    {
+        return -1 * (int)(acceleration * passed_time * passed_time / 2 + passed_time * initial_speed);
     }
 }
