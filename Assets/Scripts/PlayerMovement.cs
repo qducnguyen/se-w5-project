@@ -28,6 +28,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
+        if (Input.touches.Length > 0){
+            dirX = Input.touches[0].position.x;
+        }
+        else{
+              dirX = Input.GetAxis("Horizontal");
+        }
+
+        // Debug.Log(Input.touches.Length);
         dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
