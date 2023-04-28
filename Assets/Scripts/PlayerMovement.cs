@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private enum MovementState { idle, running, jumping, falling }
 
-    
+
     // Start is called before the first frame update
     private void Start()
     {
