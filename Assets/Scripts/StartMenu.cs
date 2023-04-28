@@ -7,6 +7,11 @@ public class StartMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void EndGame()
+    {
+        SceneManager.LoadScene("EndScreen");
     }
 }
