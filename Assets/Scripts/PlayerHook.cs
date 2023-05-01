@@ -38,7 +38,7 @@ public class PlayerHook : MonoBehaviour
     }
 
     private void Update() {
-        Debug.Log(rb.gravityScale);
+        // Debug.Log(rb.gravityScale);
         cooldownTime -= Time.deltaTime;
 
         if (Input.GetMouseButtonDown(0) && !isgrappling && cooldownTime < 0) {
@@ -65,10 +65,12 @@ public class PlayerHook : MonoBehaviour
         else {
             dirX = Input.GetAxis("Horizontal");
             rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+            Debug.Log(IsGrounded());
 
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                Debug.Log("jumppppp");
             }
 
             UpdateAnimationState();
