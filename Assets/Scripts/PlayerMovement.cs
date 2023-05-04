@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private GrappleHook gh;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
     private Animator anim;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gh = GetComponent<GrappleHook>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -37,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
               dirX = Input.GetAxis("Horizontal");
         }
 
-        // Debug.Log(Input.touches.Length);
         dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
@@ -47,6 +48,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         UpdateAnimationState();
+    }
+
+
+    private void FixedUpdate() {
+        if (!gh.retracting) {
+            rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        } else {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     private void UpdateAnimationState() 
