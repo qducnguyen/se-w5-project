@@ -19,7 +19,6 @@ public class GrappleHook : MonoBehaviour
         line = GetComponent<LineRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {   
 

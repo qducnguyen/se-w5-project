@@ -14,10 +14,13 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     public void UpdateScore(int score)
     {
-        if (score > current_score)
-        {
-            scoreText.text = "Score: " + score.ToString();
-            current_score = score;
-        }
+        // if (score > current_score)
+        // {
+        //     scoreText.text = "Score: " + score.ToString();
+        //     current_score = score;
+        // }
+
+        scoreText.text = "Score: " + score.ToString();
+        current_score = score;
     }
 }

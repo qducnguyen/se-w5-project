@@ -18,6 +18,6 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(background.position.x, player.position.y, transform.position.z);
-        score.UpdateScore((int)transform.position.y * -1);
+        score.UpdateScore((int)player.position.y * -1);
     }
 }
