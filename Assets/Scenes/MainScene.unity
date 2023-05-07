@@ -1669,6 +1669,7 @@ MonoBehaviour:
   maxDistance: 20
   grappleSpeed: 10
   grappleShootSpeed: 10
+  isGrappling: 0
   retracting: 0
 --- !u!120 &610963493
 LineRenderer:

@@ -11,7 +11,7 @@ public class GrappleHook : MonoBehaviour
     [SerializeField] float grappleSpeed = 10f;
     [SerializeField] float grappleShootSpeed = 20f;
 
-    bool isGrappling = false;
+    public bool isGrappling = false;
     [HideInInspector] public bool retracting = false;
     Vector2 target;
     private void Start()
