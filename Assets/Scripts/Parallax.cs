@@ -23,9 +23,9 @@ public class Parallax : MonoBehaviour
 
         pos.y += realVelocity * Time.fixedDeltaTime;
 
-        if (pos.y >= 17f) 
+        if (pos.y >= Camera.main.transform.position.y + 17f) 
         {
-            pos.y = -17f;
+            pos.y = Camera.main.transform.position.y - 17f;
         }
 
         transform.position = pos;

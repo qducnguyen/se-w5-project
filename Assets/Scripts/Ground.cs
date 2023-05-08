@@ -18,6 +18,8 @@ public class Ground : MonoBehaviour
         groundHeight = transform.position.y + (collider.size.y / 2);
         screenBottom = Camera.main.transform.position.y - 16f;
     }
+
+
     void Start()
     {
         
@@ -33,8 +35,9 @@ public class Ground : MonoBehaviour
         pos.y += player.velocity.y * Time.fixedDeltaTime;
 
         groundBottom = transform.position.y - (collider.size.y / 2);
+        screenBottom = Camera.main.transform.position.y - 16f;
 
-        if (groundBottom > 16f) 
+        if ((groundBottom > Camera.main.transform.position.y + 30f)) 
         {
             Destroy(gameObject);
             return;
@@ -56,7 +59,7 @@ public class Ground : MonoBehaviour
         BoxCollider2D goCollider = go.GetComponent<BoxCollider2D>();
         Vector2 pos;
         pos.x = Random.Range(-6f, 6f);
-        pos.y = transform.position.y - 10;
+        pos.y = transform.position.y - Random.Range(5f, 10f);
         go.transform.position = pos;
     }
 }
