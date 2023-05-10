@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private GrappleHook gh;
     public float gravity;
     public Vector2 velocity;
     public float groundHeight = 10;
@@ -14,7 +13,6 @@ public class Player : MonoBehaviour
     public float distance = 0f;
     void Start()
     {
-        gh = GetComponent<GrappleHook>();
     }
 
     // Update is called once per frame
@@ -33,12 +31,6 @@ public class Player : MonoBehaviour
 
         transform.position = pos;
         distance += velocity.y * Time.fixedDeltaTime;
-
-        if (!gh.retracting) {
-            velocity = new Vector2(dirX * moveSpeed, velocity.y);
-        } else {
-            velocity = Vector2.zero;
-        }
 
     }
 }
