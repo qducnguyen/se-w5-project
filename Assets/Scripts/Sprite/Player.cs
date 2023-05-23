@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float gravity;
+    public float gravity = 3;
     public Vector2 velocity;
     public float groundHeight = 10;
     public float moveSpeed = 5f;
     public bool isGrounded = false;
     private float dirX = 0f;
     public float distance = 0f;
+
     void Start()
     {
     }

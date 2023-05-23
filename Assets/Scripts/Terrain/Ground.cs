@@ -8,7 +8,7 @@ public class Ground : MonoBehaviour
     public float groundHeight;
     public float groundBottom;
     public float screenBottom;
-    BoxCollider2D collider;
+    new BoxCollider2D  collider;
 
     bool didGenerateGround = false;
 
