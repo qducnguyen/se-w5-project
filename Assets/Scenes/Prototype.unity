@@ -430,7 +430,7 @@ MonoBehaviour:
   rotateOverTime: 1
   rotationSpeed: 47.7
   hasMaxDistance: 1
-  maxDistnace: 16
+  maxDistnace: 15
   launchToPoint: 1
   launchType: 0
   launchSpeed: 2.5
@@ -619,7 +619,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00031863898, y: -0.00021621585}
+  m_Offset: {x: -0.00033814833, y: -0.0005541444}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -630,7 +630,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.15959756, y: 0.16008836}
+  m_Size: {x: 0.13985506, y: 0.13811582}
   m_EdgeRadius: 0
 --- !u!1 &393145997
 GameObject:
@@ -1307,7 +1307,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ropeProgressionSpeed: 15
+  ropeProgressionSpeed: 30
   isGrappling: 1
 --- !u!1 &1067737160
 GameObject:
