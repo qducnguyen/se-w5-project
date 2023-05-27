@@ -6,6 +6,7 @@
 
 # Additional ignore
 .DS_Store
+mono_crash.*
 
 #
 
