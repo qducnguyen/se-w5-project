@@ -156,12 +156,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6fd049232ae4dfe8accb675fc3b757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 8
   velocity: {x: 0, y: 0}
   groundHeight: 10
   moveSpeed: 10
   isGrounded: 0
   distance: 0
+  rb2d: {fileID: 0}
 --- !u!212 &2020072
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -749,8 +749,8 @@ Camera:
   m_GameObject: {fileID: 744442548}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -857,7 +857,7 @@ GameObject:
   - component: {fileID: 780744522}
   - component: {fileID: 780744521}
   m_Layer: 0
-  m_Name: bg1
+  m_Name: Cloud 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -871,8 +871,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780744519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.1, y: -8, z: -649954900}
-  m_LocalScale: {x: 2, y: 2, z: 5}
+  m_LocalPosition: {x: -2.21, y: -8.07, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1211946732}
@@ -1021,9 +1021,9 @@ GameObject:
   m_Component:
   - component: {fileID: 864349891}
   - component: {fileID: 864349892}
-  - component: {fileID: 864349893}
+  - component: {fileID: 864349894}
   m_Layer: 0
-  m_Name: bg0
+  m_Name: Background Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1037,7 +1037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864349890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2259, y: 0.3111, z: -649954900}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 14.746524, y: 32.141808, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1096,7 +1096,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &864349893
+--- !u!114 &864349894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1109,7 +1109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2020073}
-  background: {fileID: 864349891}
+  background: {fileID: 744442551}
 --- !u!1 &991680096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,7 +1163,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 052bb80022c024840918dcbc74cfa1c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1256,25 +1256,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grapplingGun: {fileID: 73640426}
   m_lineRenderer: {fileID: 991680100}
-  percision: 40
-  straightenLineSpeed: 12
+  percision: 80
+  straightenLineSpeed: 10
   ropeAnimationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      inSlope: 0.1915267
+      outSlope: 0.1915267
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.56250006
+    - serializedVersion: 3
+      time: 0.13333333
+      value: -0.13366777
+      inSlope: 0.91113156
+      outSlope: 0.91113156
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3499292
+      value: 0.4781661
+      inSlope: 0.39545047
+      outSlope: 0.39545047
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.80232346
+      value: -0.44194523
+      inSlope: 0.10091424
+      outSlope: 0.10091424
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2.235699
+      outSlope: 2.235699
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1282,7 +1309,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  StartWaveSize: 2
+  StartWaveSize: 1
   ropeProgressionCurve:
     serializedVersion: 2
     m_Curve:
@@ -1307,7 +1334,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ropeProgressionSpeed: 30
+  ropeProgressionSpeed: 7.5
   isGrappling: 1
 --- !u!1 &1067737160
 GameObject:
@@ -1365,7 +1392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211946731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2391675, y: -0.26165232, z: 649954900}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1387,7 +1414,7 @@ GameObject:
   - component: {fileID: 1338249472}
   - component: {fileID: 1338249471}
   m_Layer: 0
-  m_Name: bg2
+  m_Name: Cloud 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1401,8 +1428,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338249469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 8.9, z: -649954900}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: 3.36, y: 8.03, z: 0}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1211946732}
@@ -1557,7 +1584,7 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 744442550}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
