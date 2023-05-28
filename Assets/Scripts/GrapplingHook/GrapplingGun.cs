@@ -63,8 +63,8 @@ public class GrapplingGun : MonoBehaviour
     private void Start()
     {
 
-        init_gravity = player.gravity;
-        RbPlayer.gravityScale = 0;
+        // init_gravity = player.gravity;
+        // RbPlayer.gravityScale = 0;
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
 
@@ -105,8 +105,8 @@ public class GrapplingGun : MonoBehaviour
 
             if(launchType == LaunchType.Transform_Launch)
             {                
-                // m_rigidbody.gravityScale = 1;
-                player.gravity = init_gravity;
+                RbPlayer.gravityScale = 1;
+                // player.gravity = init_gravity;
             }
         }
         else
@@ -184,10 +184,10 @@ public class GrapplingGun : MonoBehaviour
                     m_springJoint2D.enabled = true;
                     break;
                 case LaunchType.Transform_Launch:
-                    player.velocity = Vector2.zero;
-                    player.gravity = 0;
-                    // m_rigidbody.gravityScale = 0;
-                    // m_rigidbody.velocity = Vector2.zero;
+                    // player.velocity = Vector2.zero;
+                    // player.gravity = 0;
+                    RbPlayer.gravityScale = 0;
+                    RbPlayer.velocity = Vector2.zero;
                     break;
             }
         }
