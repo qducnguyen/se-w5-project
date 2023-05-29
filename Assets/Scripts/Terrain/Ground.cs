@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ground : MonoBehaviour
 {
     Player player;
+    [SerializeField] GameObject[] terrain;
     public float groundHeight;
     public float groundBottom;
     public float screenBottom;
@@ -55,7 +56,7 @@ public class Ground : MonoBehaviour
     }
 
     void generateGround() {
-        GameObject go = Instantiate(gameObject);
+        GameObject go = Instantiate(terrain[Random.Range(0, terrain.Length)]);
         BoxCollider2D goCollider = go.GetComponent<BoxCollider2D>();
         Vector2 pos;
         pos.x = Random.Range(-6f, 6f);
