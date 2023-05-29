@@ -16,7 +16,7 @@ public class Parallax : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float realVelocity = player.velocity.y / depth;
         Vector2 pos = transform.position;
