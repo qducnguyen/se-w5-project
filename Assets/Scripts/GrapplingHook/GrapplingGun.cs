@@ -51,8 +51,13 @@ public class GrapplingGun : MonoBehaviour
     [SerializeField] private float targetDistance = 3;
     [SerializeField] private float targetFrequncy = 1;
 
+    [Header("Is Grappling in the Middle of Object")]
+    [SerializeField] private bool isMiddleObject = false;
+
+
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
+    private  GameObject objectHitted;
 
 
     private void Awake() {
@@ -141,7 +146,16 @@ public class GrapplingGun : MonoBehaviour
             {
                 if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
                 {
-                    grapplePoint = _hit.point;
+                    if (!isMiddleObject)
+                    {
+                        grapplePoint = _hit.point;
+                    }
+                    else
+                    {
+                        objectHitted = _hit.collider.gameObject;
+                        grapplePoint = objectHitted.GetComponent<BoxCollider2D>().bounds.center;
+                    }
+
                     grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
                     grappleRope.enabled = true;
                 }
