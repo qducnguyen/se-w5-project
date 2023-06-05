@@ -8,9 +8,14 @@ public class FinishGameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     private Text moneyText;
     private Text highScoreText;
+    private float inItTimeScale;
 
     private void Awake() {
         Instance = this;
+    }
+
+    private void Start() {
+        inItTimeScale = Time.timeScale;
     }
 
     public void FinishGame()
@@ -33,7 +38,7 @@ public class FinishGameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 1;
+        Time.timeScale = inItTimeScale;
         SceneManager.LoadScene(1);
     }
 }

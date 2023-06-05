@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
-        rb2d.gravityScale = 0;
+        // Just work for transform, I do not understand yet. 
+        // rb2d.gravityScale = 0;
     }
 
     // Update is called once per frame
