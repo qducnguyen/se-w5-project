@@ -244,11 +244,11 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 0.9
+  m_AngularDrag: 5
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -271,7 +271,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 1
-  m_Frequency: 15.04
+  m_Frequency: 0.05
 --- !u!114 &2020081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03758228, y: -0.087692305}
+  m_Offset: {x: 0.029567003, y: -0.10372293}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -309,7 +309,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0395617, y: 1.0896716}
+  m_Size: {x: 1.2158973, y: 1.3140988}
   m_EdgeRadius: 0
 --- !u!1 &5947373
 GameObject:
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 73640427}
   - component: {fileID: 73640426}
   m_Layer: 2
-  m_Name: GrapplingGun
+  m_Name: GrapplingHook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -613,16 +613,17 @@ MonoBehaviour:
   player: {fileID: 2020071}
   RbPlayer: {fileID: 2020079}
   init_gravity: 0
-  rotateOverTime: 1
+  rotateOverTime: 0
   rotationSpeed: 47.7
   hasMaxDistance: 1
-  maxDistnace: 16
+  maxDistnace: 18
   launchToPoint: 1
   launchType: 1
-  launchSpeed: 2.5
-  autoConfigureDistance: 1
+  launchSpeed: 1
+  autoConfigureDistance: 0
   targetDistance: 3
-  targetFrequncy: 1
+  targetFrequncy: 0.05
+  isMiddleObject: 1
   grapplePoint: {x: 0, y: 0}
   grappleDistanceVector: {x: 0, y: 0}
 --- !u!212 &73640427
@@ -2634,7 +2635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grapplingGun: {fileID: 73640426}
   m_lineRenderer: {fileID: 991680100}
-  percision: 40
+  percision: 60
   straightenLineSpeed: 12
   ropeAnimationCurve:
     serializedVersion: 2
@@ -2721,7 +2722,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ropeProgressionSpeed: 7.6
+  ropeProgressionSpeed: 7
   isGrappling: 1
 --- !u!1 &1067737160
 GameObject:
@@ -2733,7 +2734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1067737161}
   m_Layer: 0
-  m_Name: FirePoint
+  m_Name: HookFirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2747,7 +2748,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067737160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.26, y: 0.15, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3777,7 +3778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1879139891}
   m_Layer: 0
-  m_Name: GunPivot
+  m_Name: HookPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
