@@ -54,6 +54,9 @@ public class GrapplingGun : MonoBehaviour
     [Header("Is Grappling in the Middle of Object")]
     [SerializeField] private bool isMiddleObject = false;
 
+    [Header("Timeout for Shooting")]
+    [SerializeField] private float timeout = 0.4f;
+    private float timeoutCount;
 
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
@@ -77,7 +80,7 @@ public class GrapplingGun : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && timeoutCount >= timeout)
         {
             SetGrapplePoint();
         }
@@ -119,7 +122,15 @@ public class GrapplingGun : MonoBehaviour
             Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
             RotateGun(mousePos, true);
         }
+
+        if (grappleRope.enabled){
+            timeoutCount = 0;
+        }
+        else{
+            timeoutCount += Time.deltaTime;
+        }
     }
+
 
     void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
     {
