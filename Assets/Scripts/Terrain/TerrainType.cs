@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class TerrainType : MonoBehaviour
 {
-    public enum TerrainTypes {_base, obstacle, money};
+    public enum TerrainTypes {_base, obstacle, money, background_object};
     public TerrainTypes terrainType;
 }
