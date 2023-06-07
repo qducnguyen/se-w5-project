@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    
-    Player player;
-    Text distanceText;
-    PlayerCollision collision;
-
-    private int distance;
-
     public static ScoreManager Instance;
     public const string prefScore = "prefScore";
+
+    Player player;
+    TextMeshProUGUI distanceText;
+    PlayerCollision collision;
+    private int distance;
 
     private void Awake() {
         Instance = this;
         player = GameObject.Find("Player").GetComponent<Player>();
-        distanceText = GameObject.Find("ScoreText").GetComponent<Text>();
+        distanceText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
         collision = GameObject.Find("Player").GetComponent<PlayerCollision>();
 
     }
@@ -29,7 +28,7 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         distance = Mathf.FloorToInt(player.distance);
-        distanceText.text = distance + " m\nMoney " + collision.moneyGet;
+        distanceText.text = "SCORE   " + distance + "m\nCOINS   " + collision.moneyGet + "$";
     }
 
     public bool CheckNewHighScore()
