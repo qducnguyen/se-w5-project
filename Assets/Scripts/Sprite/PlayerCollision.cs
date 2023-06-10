@@ -17,6 +17,9 @@ public class PlayerCollision : MonoBehaviour
                 MoneyManager.Instance.AddMoney(1);
                 Destroy(collision.gameObject);
                 break;
+
+            case TerrainType.TerrainTypes._base:
+                break;
         }
     }
 }
