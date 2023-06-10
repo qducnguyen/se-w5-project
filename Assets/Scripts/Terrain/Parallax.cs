@@ -18,15 +18,21 @@ public class Parallax : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float realVelocity = player.velocity.y / depth;
+        // float realVelocity = player.velocity.y / depth;
         Vector2 pos = transform.position;
 
-        pos.y += realVelocity * Time.fixedDeltaTime;
+        // pos.y += realVelocity * Time.fixedDeltaTime;
 
-        if (pos.y >= Camera.main.transform.position.y + 17f) 
+        if (pos.y >= Camera.main.transform.position.y + 18f) 
         {
-            pos.y = Camera.main.transform.position.y - 17f;
+            pos.y = Camera.main.transform.position.y - 18f;
         }
+
+        else if (pos.y < Camera.main.transform.position.y - 18f)
+        {
+            pos.y = Camera.main.transform.position.y + 18f;
+        }
+
 
         transform.position = pos;
     }
