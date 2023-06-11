@@ -32,9 +32,9 @@ public class FinishGameManager : MonoBehaviour
         }
 
 
-        moneyText = GameObject.Find("MoneyText").GetComponent<TextMeshProUGUI>();
-        int moneyMade = MoneyManager.Instance.GetMoneyAndSaveMoney();
-        moneyText.text = "MONEY  " + moneyMade + "$";
+        // moneyText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        // int moneyMade = MoneyManager.Instance.GetMoneyAndSaveMoney();
+        // moneyText.text = "MONEY  " + moneyMade + "$";
     }
 
     public void RestartGame()

@@ -11,10 +11,11 @@ public class Player : MonoBehaviour
     public float groundHeight = 10;
     public float moveSpeed = 5f;
     public bool isGrounded = false;
-    private float dirX = 0f;
     public float distance = 0f;
 
-    [SerializeField] private Rigidbody2D rb2d;
+    // private float dirX = 0f;
+    private Rigidbody2D rb2d;
+
     private void Awake() {
         rb2d = GetComponent<Rigidbody2D>();   
     }
@@ -27,18 +28,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dirX = Input.GetAxis("Horizontal");
-        velocity.x = dirX * moveSpeed; //BUG
+        // dirX = Input.GetAxis("Horizontal");
+        // velocity.x = dirX * moveSpeed; //BUG
     }
 
     private void FixedUpdate() 
     {
-        Vector2 pos = transform.position;
+        // Vector2 pos = transform.position;
         // velocity.y += gravity * Time.fixedDeltaTime;
-        pos.x += velocity.x * Time.fixedDeltaTime; // bug?
+        // pos.x += velocity.x * Time.fixedDeltaTime; // bug?
 
 
-        transform.position = pos;
+        // transform.position = pos;
         // distance += velocity.y * Time.fixedDeltaTime;
         distance += -rb2d.velocity.y * Time.fixedDeltaTime;
 
