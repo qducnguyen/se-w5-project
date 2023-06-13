@@ -559,15 +559,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 357611897}
-        m_TargetAssemblyTypeName: HowToPlayScreenController, Assembly-CSharp
-        m_MethodName: PressBackButton
-        m_Mode: 1
+        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+        m_MethodName: OnPressButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: StartScreen
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &357611895
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 357611892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7a4ead86816b421a862bd42ec5473e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 810e73c6e75604e9b82a6c2d7aac955b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &427375530
@@ -1128,15 +1128,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1480894411}
-        m_TargetAssemblyTypeName: HowToPlayScreenController, Assembly-CSharp
-        m_MethodName: PressStartButton
-        m_Mode: 1
+        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+        m_MethodName: OnPressButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: InGameScreen
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1480894409
@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1480894406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7a4ead86816b421a862bd42ec5473e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 810e73c6e75604e9b82a6c2d7aac955b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1694423652

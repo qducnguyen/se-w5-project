@@ -209,15 +209,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 71238015}
-        m_TargetAssemblyTypeName: GameOverPanelController, Assembly-CSharp
-        m_MethodName: PressPlayAgainButton
-        m_Mode: 1
+        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+        m_MethodName: OnPressButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: InGameScreen
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &71238013
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 71238009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785a867f7ab404b55927254f7ebc025d, type: 3}
+  m_Script: {fileID: 11500000, guid: 810e73c6e75604e9b82a6c2d7aac955b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &327369118
@@ -547,6 +547,7 @@ GameObject:
   - component: {fileID: 695014625}
   - component: {fileID: 695014624}
   - component: {fileID: 695014623}
+  - component: {fileID: 695014627}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -636,6 +637,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &695014627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695014622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e288f78745b4718b03efd6c0da1208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unityAdsManager: {fileID: 1523153217}
+  showRewardedBtn: {fileID: 1859794795}
 --- !u!1 &732835787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,6 +1056,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468139526}
   m_CullTransparentMesh: 1
+--- !u!1 &1523153215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523153216}
+  - component: {fileID: 1523153217}
+  m_Layer: 0
+  m_Name: AdsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1523153216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523153215}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.72421956, y: 0.48144728, z: 70.74145}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1523153217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523153215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645b5de6f880147feb91df7dd42b9a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GAME_ID: 3003911
 --- !u!1 &1859794792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,7 +1113,7 @@ GameObject:
   - component: {fileID: 1859794797}
   - component: {fileID: 1859794796}
   - component: {fileID: 1859794795}
-  - component: {fileID: 1859794794}
+  - component: {fileID: 1859794798}
   m_Layer: 5
   m_Name: WatchAdsButton
   m_TagString: Untagged
@@ -1082,18 +1142,6 @@ RectTransform:
   m_AnchoredPosition: {x: -175, y: -750}
   m_SizeDelta: {x: 242.35, y: 108.77}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1859794794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859794792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7a4ead86816b421a862bd42ec5473e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1859794795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,13 +1186,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1859794794}
-        m_TargetAssemblyTypeName: HowToPlayScreenController, Assembly-CSharp
-        m_MethodName: PressBackButton
+      - m_Target: {fileID: 1523153215}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1188,3 +1236,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859794792}
   m_CullTransparentMesh: 1
+--- !u!114 &1859794798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859794792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810e73c6e75604e9b82a6c2d7aac955b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
