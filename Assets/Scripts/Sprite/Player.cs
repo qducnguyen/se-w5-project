@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
+        // Debug.Log(Camera.main.pixelHeight);
+        // Debug.Log(Camera.main.pixelWidth);
+
         // Just work for transform, I do not understand yet. 
         // rb2d.gravityScale = 0;
     }
