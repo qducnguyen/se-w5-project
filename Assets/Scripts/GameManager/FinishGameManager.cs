@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using TMPro;
 
 public class FinishGameManager : MonoBehaviour
 {
     public static FinishGameManager Instance;
     [SerializeField] private GameObject gameOverPanel;
-    private Text moneyText;
-    private Text highScoreText;
+    private TextMeshProUGUI moneyText;
+    private TextMeshProUGUI highScoreText;
     private float inItTimeScale;
 
     private void Awake() {
@@ -16,22 +16,25 @@ public class FinishGameManager : MonoBehaviour
 
     private void Start() {
         inItTimeScale = Time.timeScale;
-    }
+        }
 
     public void FinishGame()
     {
         Time.timeScale = 0;
         gameOverPanel.SetActive(true);
 
-        highScoreText = GameObject.Find("HighScoreText").GetComponent<Text>();
+        highScoreText = GameObject.Find("HighScoreText").GetComponent<TextMeshProUGUI>();
         bool isNewHighScore = ScoreManager.Instance.CheckNewHighScore();
         if (isNewHighScore)
         {
             highScoreText.text = "New highscore!";
         }
+        else{
+            highScoreText.text = null;
+        }
 
 
-        moneyText = GameObject.Find("MoneyText").GetComponent<Text>();
+        moneyText = GameObject.Find("MoneyText").GetComponent<TextMeshProUGUI>();
         int moneyMade = MoneyManager.Instance.GetMoneyAndSaveMoney();
         moneyText.text = "Money: " + moneyMade;
     }
