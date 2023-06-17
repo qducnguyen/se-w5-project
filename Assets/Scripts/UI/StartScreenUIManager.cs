@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using TMPro;
+using Firebase.Auth;
 public class StartScreenUIManager : MonoBehaviour
 {
     public static StartScreenUIManager instance;
@@ -12,6 +14,19 @@ public class StartScreenUIManager : MonoBehaviour
     public GameObject loginUI;
 
     public GameObject registerUI;
+    public Button loginButton;
+
+    public Button logoutButton;
+
+    public Button syncButton;
+
+
+    public TMP_Text WelcomeText;
+
+    public TMP_Text TotalMoneyText;
+
+    public TMP_Text HighScoreText;
+
 
     public void ClearScreen(){
         startScreenUI.SetActive(false);
@@ -55,6 +70,33 @@ public class StartScreenUIManager : MonoBehaviour
     {
         // ClearScreen();
         SceneManager.LoadScene("Prototype");
+    }
+
+    public void UpdateUserInformation(FirebaseUser user){
+        if (user != null){
+            WelcomeText.text =  "Welcome " + user.DisplayName + "!";
+
+            loginButton.interactable = false;
+            logoutButton.interactable = true;
+            syncButton.interactable = true;
+            // loginButton.SetActive(false);
+            // logoutButton.SetActive(true);
+            // syncButton.SetActive(true);
+        }
+        else{
+            WelcomeText.text =  "You are playing as Anonymous";
+
+            loginButton.interactable = true;
+            logoutButton.interactable = false;
+            syncButton.interactable = false;
+
+            // loginButton.SetActive(true);
+            // logoutButton.SetActive(false);
+            // syncButton.SetActive(false);
+        }
+        TotalMoneyText.text = "Total Money: " + PlayerPrefs.GetInt("prefTotalMoney").ToString();
+        HighScoreText.text = "Highscore: " + PlayerPrefs.GetInt("prefScore").ToString() + " m";
+
     }
 
 }

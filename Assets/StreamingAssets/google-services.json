@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "786987877225",
+    "firebase_url": "https://verticalgametest-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "verticalgametest",
     "storage_bucket": "verticalgametest.appspot.com"
   },

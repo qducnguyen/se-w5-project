@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
+using Firebase.Database;
 using Firebase.Auth;
 using TMPro;
 
-public class AuthManager : MonoBehaviour
+public class FirebaseManager : MonoBehaviour
 {
     //Firebase variables
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
     public FirebaseAuth auth;    
     public FirebaseUser User;
+    public DatabaseReference DBreference;
 
-    //Login variables
+
     [Header("Login")]
     public TMP_InputField usernameLoginField;
 
@@ -25,16 +27,21 @@ public class AuthManager : MonoBehaviour
     private const string EMAIL_ADDRESS = "w5.com";
     private const string DEFAULT_PASSWORD = "123456";
 
+    [HideInInspector] public static FirebaseManager instance;
+
 
     void Awake()
     {
         //Check that all of the necessary dependencies for Firebase are present on the system
+        instance = this;
+
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             dependencyStatus = task.Result;
             if (dependencyStatus == DependencyStatus.Available)
             {
                 //If they are avalible Initialize Firebase
+                // InitializeFirebaseDB();
                 InitializeFirebase();
             }
             else
@@ -44,11 +51,57 @@ public class AuthManager : MonoBehaviour
         });
     }
 
+    private void Start() {
+        StartScreenUIManager.instance.UpdateUserInformation(User);
+
+    }
     private void InitializeFirebase()
     {
-        Debug.Log("Setting up Firebase Auth");
+        Debug.Log("Setting up Firebase");
         //Set the authentication instance object
         auth = FirebaseAuth.DefaultInstance;
+        DBreference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        // For Testing
+        // if (auth.CurrentUser != null){
+        //     auth.SignOut();
+        // }
+
+
+        // StartScreenUIManager.instance.UpdateUserInformation(User);
+        auth.StateChanged += AuthStateChanged;
+
+
+    }
+
+    void AuthStateChanged(object sender, System.EventArgs eventArgs) {
+        if (auth.CurrentUser != User) {
+            bool signedIn = User != auth.CurrentUser && auth.CurrentUser != null;
+            if (!signedIn && User != null) {
+                Debug.Log("Signed out " + User.UserId);
+            }
+            User = auth.CurrentUser;
+            StartScreenUIManager.instance.UpdateUserInformation(User);
+            if (signedIn) {
+                Debug.Log("Signed in " + User.UserId);
+            }
+        }
+    }
+
+    // Handle removing subscription and reference to the Auth instance.
+    // Automatically called by a Monobehaviour after Destroy is called on it.
+    // void OnDestroy() {
+    //     auth.StateChanged -= AuthStateChanged;
+    //     auth = null;
+    // }
+
+     public void ClearLoginFields()
+    {
+        usernameLoginField.text = "";
+    }
+    public void ClearRegisterFields()
+    {
+        usernameRegisterField.text = "";
     }
 
 
@@ -63,6 +116,24 @@ public class AuthManager : MonoBehaviour
         //Call the register coroutine passing the email, password, and username
         StartCoroutine(Register(usernameRegisterField.text));
     }
+
+
+    public void SignoutButton()
+    {
+        auth.SignOut();
+        ClearLoginFields();
+        ClearRegisterFields();
+    }
+
+    public void SyncButton()
+    {
+
+        StartCoroutine(UpdateUserTotalMoney());
+        StartCoroutine(UpdateUserHighScore());
+
+        Debug.Log("Success Synchronisation!");
+    }
+
 
     private IEnumerator Login(string _username)
     {
@@ -106,8 +177,19 @@ public class AuthManager : MonoBehaviour
             //User is now logged in
             //Now get the result
             User = LoginTask.Result.User;
-            Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
+            Debug.LogFormat("User signed in successfully: {0} ", User.DisplayName);
             Debug.Log("Logged In");
+            
+            StartCoroutine(LoadUserData());
+
+            yield return new WaitForSeconds(2);
+            StartScreenUIManager.instance.UpdateUserInformation(User);
+            StartScreenUIManager.instance.StartScreen();
+
+
+            ClearLoginFields();
+            ClearRegisterFields();
+
         }
     }
 
@@ -180,11 +262,76 @@ public class AuthManager : MonoBehaviour
                     {
                         //Username is now set
                         //Now return to login screen
+                        auth.SignOut();
+
+                        yield return new WaitForSeconds(1);
+
+                        StartScreenUIManager.instance.UpdateUserInformation(User);
                         StartScreenUIManager.instance.LoginScreen();
+                        ClearLoginFields();
+                        ClearRegisterFields();
+
                     }
                 }
             }
         }
     }
 
+    private IEnumerator UpdateUserTotalMoney(){
+        var DBTask = DBreference.Child("users").Child(User.UserId).Child("prefTotalMoney").SetValueAsync(PlayerPrefs.GetInt("prefTotalMoney"));
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            //Database username is now updated
+        }
+    }
+
+    private IEnumerator UpdateUserHighScore(){
+        var DBTask = DBreference.Child("users").Child(User.UserId).Child("prefScore").SetValueAsync(PlayerPrefs.GetInt("prefScore"));
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            //Database username is now updated
+        }
+    }
+
+    private IEnumerator LoadUserData()
+    {
+        //Get the currently logged in user data
+        var DBTask = DBreference.Child("users").Child(User.UserId).GetValueAsync();
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else if (DBTask.Result.Value == null)
+        {
+            //No data exists yet
+            PlayerPrefs.SetInt("prefTotalMoney", 0);
+            PlayerPrefs.SetInt("prefScore", 0);
+        }
+        else
+        {
+            //Data has been retrieved
+            DataSnapshot snapshot = DBTask.Result;
+
+            PlayerPrefs.SetInt("prefTotalMoney", int.Parse(snapshot.Child("prefTotalMoney").Value.ToString()));
+            PlayerPrefs.SetInt("prefScore", int.Parse(snapshot.Child("prefScore").Value.ToString()));
+
+        }
+    }
 }

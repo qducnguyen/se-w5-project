@@ -39,9 +39,15 @@ public class FinishGameManager : MonoBehaviour
         moneyText.text = "Money: " + moneyMade;
     }
 
-    public void RestartGame()
+    public void RestartGameButton()
     {
         Time.timeScale = inItTimeScale;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Prototype");
+    }
+
+    public void BacktoMainScreenButton()
+    {
+        Time.timeScale = inItTimeScale;
+        SceneManager.LoadScene("StartScreen");
     }
 }
