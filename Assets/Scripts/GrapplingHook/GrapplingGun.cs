@@ -62,6 +62,7 @@ public class GrapplingGun : MonoBehaviour
     [HideInInspector] public Vector2 grappleDistanceVector;
     private  GameObject objectHitted;
 
+    private Touch touch;
 
     private void Awake() {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -77,7 +78,6 @@ public class GrapplingGun : MonoBehaviour
         m_springJoint2D.enabled = false;
 
     }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && timeoutCount >= timeout)

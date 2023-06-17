@@ -1,0 +1,37 @@
+{
+  "project_info": {
+    "project_number": "786987877225",
+    "firebase_url": "https://verticalgametest-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "verticalgametest",
+    "storage_bucket": "verticalgametest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786987877225:ios:a1db61ee2cdee01a2f33f8",
+        "android_client_info": {
+          "package_name": "com.W5.VerticalPlatformGame"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjBYG5NIJWo09srmVBiuG4jrCm_W5mzIM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786987877225-2iva5ju6p5ld9b6c3ln8p7hltpabs1bo.apps.googleusercontent.com"
+        }
+      ]
+    }
+  ],
+  "configuration_version": "1"
+}

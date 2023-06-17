@@ -16,7 +16,6 @@ public class CameraScaling : MonoBehaviour
 
     private void OnGUI() {
 
-
         float currentAspect = (float) Screen.width / (float) Screen.height;
 		Camera.main.orthographicSize = developedHorizontalResolution / currentAspect / (developedVerticalResolution / initSize);
 	}
