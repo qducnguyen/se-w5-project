@@ -14,6 +14,9 @@ public class StartScreenUIManager : MonoBehaviour
     public GameObject loginUI;
 
     public GameObject registerUI;
+
+    public GameObject settingsUI;
+
     public Button loginButton;
 
     public Button logoutButton;
@@ -28,10 +31,12 @@ public class StartScreenUIManager : MonoBehaviour
     public TMP_Text HighScoreText;
 
 
-    public void ClearScreen(){
+    public void ClearScreen()
+    {
         startScreenUI.SetActive(false);
         loginUI.SetActive(false);
         registerUI.SetActive(false);
+        settingsUI.SetActive(false);
     }
 
 
@@ -58,6 +63,12 @@ public class StartScreenUIManager : MonoBehaviour
     {
         ClearScreen();
         registerUI.SetActive(true);
+    }
+
+    public void SettingsScreen()
+    {
+        ClearScreen();
+        settingsUI.SetActive(true);
     }
 
     public void StartScreen()

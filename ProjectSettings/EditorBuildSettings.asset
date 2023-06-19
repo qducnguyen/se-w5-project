@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Prototype.unity
     guid: 5b1ba08719bdd4511bc239348298b377
   - enabled: 1
+    path: Assets/Scenes/ShoppingSystem.unity
+    guid: 8caf4f268bd894c95bba0f1a1039a05b
+  - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: 808d4e0e917cb4c45bcb915d0e38901d
   m_configObjects: {}

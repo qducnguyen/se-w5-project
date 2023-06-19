@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoneyManager : MonoBehaviour
 {
     public static MoneyManager Instance;
-    [SerializeField] private int currentMoney;
+    [SerializeField] public int currentMoney;
     public const string prefMoney = "prefMoney";
     public const string preftotalMoney = "prefTotalMoney";
 
