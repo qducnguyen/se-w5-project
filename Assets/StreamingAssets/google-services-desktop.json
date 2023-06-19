@@ -8,29 +8,39 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:786987877225:ios:a1db61ee2cdee01a2f33f8",
+        "mobilesdk_app_id": "1:786987877225:android:c15e399bc2cfbc392f33f8",
         "android_client_info": {
           "package_name": "com.W5.VerticalPlatformGame"
         }
       },
+      "oauth_client": [
+        {
+          "client_id": "786987877225-bp2rq8hc040rj171mbr7r7v7c9g8nt6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBjBYG5NIJWo09srmVBiuG4jrCm_W5mzIM"
+          "current_key": "AIzaSyAMJZmbQV-Qph6sqwF0P0kGP7PVD9Oq66Y"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 0
-        },
         "appinvite_service": {
-          "status": 1
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786987877225-bp2rq8hc040rj171mbr7r7v7c9g8nt6e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "786987877225-2iva5ju6p5ld9b6c3ln8p7hltpabs1bo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.W5.VerticalPlatformGame"
+              }
+            }
+          ]
         }
-      },
-      "oauth_client": [
-        {
-          "client_id": "786987877225-2iva5ju6p5ld9b6c3ln8p7hltpabs1bo.apps.googleusercontent.com"
-        }
-      ]
+      }
     }
   ],
   "configuration_version": "1"

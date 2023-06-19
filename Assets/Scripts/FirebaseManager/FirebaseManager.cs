@@ -10,10 +10,11 @@ public class FirebaseManager : MonoBehaviour
 {
     //Firebase variables
     [Header("Firebase")]
-    public DependencyStatus dependencyStatus;
-    public FirebaseAuth auth;    
-    public FirebaseUser User;
-    public DatabaseReference DBreference;
+    private DependencyStatus dependencyStatus;
+    private FirebaseAuth auth;    
+    private FirebaseUser User;
+
+    private DatabaseReference DBreference;
 
 
     [Header("Login")]
@@ -34,7 +35,6 @@ public class FirebaseManager : MonoBehaviour
     {
         //Check that all of the necessary dependencies for Firebase are present on the system
         instance = this;
-
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             dependencyStatus = task.Result;
@@ -57,7 +57,7 @@ public class FirebaseManager : MonoBehaviour
     }
     private void InitializeFirebase()
     {
-        Debug.Log("Setting up Firebase");
+        // Debug.Log("Setting up Firebase");
         //Set the authentication instance object
         auth = FirebaseAuth.DefaultInstance;
         DBreference = FirebaseDatabase.DefaultInstance.RootReference;
@@ -68,7 +68,6 @@ public class FirebaseManager : MonoBehaviour
         // }
 
 
-        // StartScreenUIManager.instance.UpdateUserInformation(User);
         auth.StateChanged += AuthStateChanged;
 
 
@@ -78,22 +77,24 @@ public class FirebaseManager : MonoBehaviour
         if (auth.CurrentUser != User) {
             bool signedIn = User != auth.CurrentUser && auth.CurrentUser != null;
             if (!signedIn && User != null) {
-                Debug.Log("Signed out " + User.UserId);
+                Debug.Log("Signed out");
             }
             User = auth.CurrentUser;
             StartScreenUIManager.instance.UpdateUserInformation(User);
             if (signedIn) {
-                Debug.Log("Signed in " + User.UserId);
+                Debug.Log("Signed in as " + User.DisplayName + "!");
             }
         }
     }
 
     // Handle removing subscription and reference to the Auth instance.
     // Automatically called by a Monobehaviour after Destroy is called on it.
-    // void OnDestroy() {
-    //     auth.StateChanged -= AuthStateChanged;
-    //     auth = null;
-    // }
+    // Original Version OnDestroy()
+    private void OnDisable() {
+        auth.StateChanged -= AuthStateChanged;
+        auth = null;
+        DBreference = null;
+    }
 
      public void ClearLoginFields()
     {
@@ -120,9 +121,10 @@ public class FirebaseManager : MonoBehaviour
 
     public void SignoutButton()
     {
-        auth.SignOut();
         ClearLoginFields();
         ClearRegisterFields();
+        auth.SignOut();
+        // StartScreenUIManager.instance.UpdateUserInformation(User);
     }
 
     public void SyncButton()
@@ -177,8 +179,8 @@ public class FirebaseManager : MonoBehaviour
             //User is now logged in
             //Now get the result
             User = LoginTask.Result.User;
-            Debug.LogFormat("User signed in successfully: {0} ", User.DisplayName);
-            Debug.Log("Logged In");
+            // Debug.LogFormat("User signed in successfully: {0} ", User.DisplayName);
+            // Debug.Log("Logged In");
             
             StartCoroutine(LoadUserData());
 
