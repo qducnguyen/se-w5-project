@@ -7,10 +7,11 @@ public class SkinManager : MonoBehaviour
 {
     public static SkinManager Instance;
 
+    private const string skinPref = "skinPref";
+
     public static Sprite equippedSkin { get; private set; }
 
     [SerializeField] private SkinInfo[] allSkins;
-    private const string skinPref = "skinPref";
 
     [SerializeField] private Transform skinsInShopPanelsParent;
     [SerializeField] private List<SkinInShop> skinsInShopPanels = new List<SkinInShop>();//SFD

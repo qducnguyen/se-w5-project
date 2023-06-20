@@ -11,7 +11,7 @@ public class StartGameManager : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Prototype");
+        SceneManager.LoadScene("InGameScreen");
     }
 
 

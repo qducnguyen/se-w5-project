@@ -6,8 +6,9 @@ public class FinishGameManager : MonoBehaviour
 {
     public static FinishGameManager Instance;
     [SerializeField] private GameObject gameOverPanel;
-    private TextMeshProUGUI moneyText;
-    private TextMeshProUGUI highScoreText;
+
+    [SerializeField] private TMP_Text moneyText;
+    [SerializeField] private TMP_Text highScoreText;
     private float inItTimeScale;
 
     private void Awake() {
@@ -23,18 +24,15 @@ public class FinishGameManager : MonoBehaviour
         Time.timeScale = 0;
         gameOverPanel.SetActive(true);
 
-        highScoreText = GameObject.Find("HighScoreText").GetComponent<TextMeshProUGUI>();
         bool isNewHighScore = ScoreManager.Instance.CheckNewHighScore();
         if (isNewHighScore)
         {
-            highScoreText.text = "New highscore!";
+            highScoreText.text = "New Highscore!";
         }
         else{
             highScoreText.text = null;
         }
 
-
-        moneyText = GameObject.Find("MoneyText").GetComponent<TextMeshProUGUI>();
         int moneyMade = MoneyManager.Instance.GetMoneyAndSaveMoney();
         moneyText.text = "Money: " + moneyMade;
     }
@@ -42,7 +40,7 @@ public class FinishGameManager : MonoBehaviour
     public void RestartGameButton()
     {
         Time.timeScale = inItTimeScale;
-        SceneManager.LoadScene("Prototype");
+        SceneManager.LoadScene("InGameScreen");
     }
 
     public void BacktoMainScreenButton()

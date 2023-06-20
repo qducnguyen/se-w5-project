@@ -19,7 +19,7 @@ public class SkinInShop : MonoBehaviour
 
         if (isFreeSkin)
         {
-            if (PlayerMoney.Instance.TryRemoveMoney(0))
+            if (StartScreenMoneyManager.Instance.TryRemoveMoney(0))
             {
                 PlayerPrefs.SetInt(skinInfo._skinID.ToString(), 1);
             }
@@ -58,7 +58,7 @@ public class SkinInShop : MonoBehaviour
         else
         {
             //buy
-            if (PlayerMoney.Instance.TryRemoveMoney(skinInfo._skinPrice))
+            if (StartScreenMoneyManager.Instance.TryRemoveMoney(skinInfo._skinPrice))
             {
                 PlayerPrefs.SetInt(skinInfo._skinID.ToString(), 1);
                 IsSkinUnlocked();

@@ -1,24 +1,24 @@
 using UnityEngine;
 using TMPro;
 
-public class PlayerMoney : MonoBehaviour
+public class StartScreenMoneyManager : MonoBehaviour
 {
-    public static PlayerMoney Instance;
+    public static StartScreenMoneyManager Instance;
 
-    [SerializeField] private int playerMoney;
-    TextMeshProUGUI moneyText;
+    [SerializeField] private TMP_Text moneyText; 
+
+    private int playerMoney;
 
     public const string preftotalMoney = "prefTotalMoney";
 
     private void Awake()
     {
         Instance = this;
-        moneyText = GameObject.Find("MoneyText").GetComponent<TextMeshProUGUI>();
+        playerMoney = PlayerPrefs.GetInt(preftotalMoney);
     }
 
     private void Start() 
     {
-        playerMoney = PlayerPrefs.GetInt(preftotalMoney);
         moneyText.text = "Money: " + playerMoney;
     }
 
@@ -39,6 +39,8 @@ public class PlayerMoney : MonoBehaviour
 
     public void UpdateFromWatchAds()
     {
+
+        // TODO
         PlayerPrefs.SetInt(preftotalMoney, playerMoney + 1);
         playerMoney = PlayerPrefs.GetInt(preftotalMoney);
         moneyText.text = "Money: " + playerMoney;

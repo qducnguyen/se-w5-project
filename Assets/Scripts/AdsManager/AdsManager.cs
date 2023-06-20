@@ -80,7 +80,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
         DebugLog($"OnUnityAdsShowComplete: [{showCompletionState}]: {placementId}");
-        PlayerMoney.Instance.UpdateFromWatchAds();
+        StartScreenMoneyManager.Instance.UpdateFromWatchAds();
     }
     #endregion
 

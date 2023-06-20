@@ -6,20 +6,21 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     
-    Player player;
-    TextMeshProUGUI distanceText;
+
+    [SerializeField] private TMP_Text statsText;
+    [SerializeField] private Player player;
+
     PlayerCollision collision;
 
     private int distance;
+    private int money;
 
     public static ScoreManager Instance;
     public const string prefScore = "prefScore";
 
     private void Awake() {
         Instance = this;
-        player = GameObject.Find("Player").GetComponent<Player>();
-        distanceText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
-        collision = GameObject.Find("Player").GetComponent<PlayerCollision>();
+        collision = player.GetComponent<PlayerCollision>();
 
     }
     void Start()
@@ -29,7 +30,9 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         distance = Mathf.FloorToInt(player.distance);
-        distanceText.text = distance + " m\nMoney " + collision.moneyGet;
+        money = collision.moneyGet;
+        
+        statsText.text = distance + " m\nMoney " + money;
     }
 
     public bool CheckNewHighScore()
@@ -37,12 +40,10 @@ public class ScoreManager : MonoBehaviour
         if (distance > PlayerPrefs.GetInt(prefScore))
         {
             PlayerPrefs.SetInt(prefScore, distance);
-            // Debug.Log("new highscore: " + distance);
             return true;
         }
         else
         {
-            // Debug.Log("no new highscore");
             return false;
         }
     }

@@ -17,11 +17,15 @@ public class StartScreenUIManager : MonoBehaviour
 
     public GameObject settingsUI;
 
+    public GameObject shoppingUI;
+
     public Button loginButton;
 
     public Button logoutButton;
 
     public Button syncButton;
+
+    public Button shopButton;
 
 
     public TMP_Text WelcomeText;
@@ -37,6 +41,7 @@ public class StartScreenUIManager : MonoBehaviour
         loginUI.SetActive(false);
         registerUI.SetActive(false);
         settingsUI.SetActive(false);
+        shoppingUI.SetActive(false);
     }
 
 
@@ -71,6 +76,15 @@ public class StartScreenUIManager : MonoBehaviour
         settingsUI.SetActive(true);
     }
 
+     public void ShoppingScreen()
+    {
+        ClearScreen();
+        shoppingUI.SetActive(true);
+        // SceneManager.LoadScene("ShoppingSystem");
+
+    }
+
+
     public void StartScreen()
     {
         ClearScreen();
@@ -80,8 +94,9 @@ public class StartScreenUIManager : MonoBehaviour
     public void StartGame()
     {
         // ClearScreen();
-        SceneManager.LoadScene("Prototype");
+        SceneManager.LoadScene("InGameScreen");
     }
+
 
     public void UpdateUserInformation(FirebaseUser user){
         if (user != null){
@@ -90,9 +105,6 @@ public class StartScreenUIManager : MonoBehaviour
             loginButton.interactable = false;
             logoutButton.interactable = true;
             syncButton.interactable = true;
-            // loginButton.SetActive(false);
-            // logoutButton.SetActive(true);
-            // syncButton.SetActive(true);
         }
         else{
             WelcomeText.text =  "You are playing as Anonymous";
@@ -100,10 +112,6 @@ public class StartScreenUIManager : MonoBehaviour
             loginButton.interactable = true;
             logoutButton.interactable = false;
             syncButton.interactable = false;
-
-            // loginButton.SetActive(true);
-            // logoutButton.SetActive(false);
-            // syncButton.SetActive(false);
         }
         TotalMoneyText.text = "Total Money: " + PlayerPrefs.GetInt("prefTotalMoney").ToString();
         HighScoreText.text = "Highscore: " + PlayerPrefs.GetInt("prefScore").ToString() + " m";
