@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkinLoader: MonoBehaviour
+public class PlayerSkinLoader: MonoBehaviour
 {
     [SerializeField] private SpriteRenderer playerSR;
 

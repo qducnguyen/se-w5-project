@@ -133,13 +133,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2020073}
   - component: {fileID: 2020072}
+  - component: {fileID: 2020084}
   - component: {fileID: 2020071}
   - component: {fileID: 2020081}
   - component: {fileID: 2020079}
   - component: {fileID: 2020080}
   - component: {fileID: 2020082}
   - component: {fileID: 2020083}
-  - component: {fileID: 2020084}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
