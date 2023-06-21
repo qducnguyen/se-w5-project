@@ -55,4 +55,5 @@ public class SkinManager : MonoBehaviour
         currentlyEquippedSkinButton = skinInfoInShop.GetComponentInChildren<Button>();
         currentlyEquippedSkinButton.interactable = false;
     }
+
 }

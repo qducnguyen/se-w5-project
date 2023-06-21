@@ -34,15 +34,7 @@ public class StartScreenUIManager : MonoBehaviour
 
     public TMP_Text HighScoreText;
 
-
-    public void ClearScreen()
-    {
-        startScreenUI.SetActive(false);
-        loginUI.SetActive(false);
-        registerUI.SetActive(false);
-        settingsUI.SetActive(false);
-        shoppingUI.SetActive(false);
-    }
+    [HideInInspector] public bool IsInitialized { get; private set;} // For get and set
 
 
     private void Awake()
@@ -56,6 +48,17 @@ public class StartScreenUIManager : MonoBehaviour
             Debug.Log("Instance already exists, destroying object!");
             Destroy(this);
         }
+
+        IsInitialized = true;
+    }
+
+    public void ClearScreen()
+    {
+        startScreenUI.SetActive(false);
+        loginUI.SetActive(false);
+        registerUI.SetActive(false);
+        settingsUI.SetActive(false);
+        shoppingUI.SetActive(false);
     }
 
 
@@ -87,6 +90,7 @@ public class StartScreenUIManager : MonoBehaviour
 
     public void StartScreen()
     {
+        UpdateUserInformation(FirebaseManager.User);
         ClearScreen();
         startScreenUI.SetActive(true);
     }

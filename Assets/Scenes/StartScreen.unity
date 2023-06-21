@@ -5683,6 +5683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usernameLoginField: {fileID: 155980517}
   usernameRegisterField: {fileID: 711064659}
+  IsInitialized: 0
 --- !u!4 &1173100024
 Transform:
   m_ObjectHideFlags: 0

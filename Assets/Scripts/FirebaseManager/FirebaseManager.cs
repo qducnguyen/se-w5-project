@@ -12,7 +12,7 @@ public class FirebaseManager : MonoBehaviour
     [Header("Firebase")]
     private DependencyStatus dependencyStatus;
     private FirebaseAuth auth;    
-    private FirebaseUser User;
+    public static FirebaseUser User;
 
     private DatabaseReference DBreference;
 
@@ -29,6 +29,7 @@ public class FirebaseManager : MonoBehaviour
     private const string DEFAULT_PASSWORD = "123456";
 
     [HideInInspector] public static FirebaseManager instance;
+    [HideInInspector] public bool IsInitialized;
 
 
     void Awake()
@@ -49,11 +50,12 @@ public class FirebaseManager : MonoBehaviour
                 Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
             }
         });
+
+        IsInitialized = true;
     }
 
     private void Start() {
         StartScreenUIManager.instance.UpdateUserInformation(User);
-
     }
     private void InitializeFirebase()
     {
@@ -184,7 +186,7 @@ public class FirebaseManager : MonoBehaviour
             
             StartCoroutine(LoadUserData());
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
             StartScreenUIManager.instance.UpdateUserInformation(User);
             StartScreenUIManager.instance.StartScreen();
 
