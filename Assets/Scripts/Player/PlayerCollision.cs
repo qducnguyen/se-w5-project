@@ -11,6 +11,10 @@ public class PlayerCollision : MonoBehaviour
             case TerrainType.TerrainTypes.obstacle:
                 FinishGameManager.Instance.FinishGame();
                 break;
+            
+            case TerrainType.TerrainTypes.monster:
+                FinishGameManager.Instance.FinishGame();
+                break;
 
             case TerrainType.TerrainTypes.money:
                 moneyGet += 1;
