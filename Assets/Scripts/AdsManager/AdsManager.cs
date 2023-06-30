@@ -7,7 +7,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 {
     public static AdsManager Instance;
 
-    public string GAME_ID = "3003911"; // iPhoneGameID
+    public string GAME_ID = "3003912"; 
 
     private const string REWARDED_VIDEO_PLACEMENT = "rewardedVideo";
 

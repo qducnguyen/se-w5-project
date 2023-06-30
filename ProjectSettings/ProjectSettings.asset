@@ -789,7 +789,7 @@ PlayerSettings:
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
   enableRoslynAnalyzers: 1
-  selectedPlatform: 0
+  selectedPlatform: 2
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
@@ -874,11 +874,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 9f03fe35-e09b-43c6-8edb-6d498dd45739
+  cloudProjectId: 11a918f4-2766-45bb-b26c-da1ae07af8b0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: VerticalPlatformGame
-  organizationId: tranaflee
+  organizationId: ducgopher
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
