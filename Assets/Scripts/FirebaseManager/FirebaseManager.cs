@@ -130,6 +130,7 @@ public class FirebaseManager : MonoBehaviour
 
         StartCoroutine(UpdateUserTotalMoney());
         StartCoroutine(UpdateUserHighScore());
+        StartCoroutine(UpdateUsernameDatabase(User.DisplayName));
 
         Debug.Log("Success Synchronisation!");
     }
@@ -311,6 +312,24 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
+    private IEnumerator UpdateUsernameDatabase(string _username)
+    {
+        //Set the currently logged in user username in the database
+        var DBTask = DBreference.Child("users").Child(User.UserId).Child("username").SetValueAsync(_username);
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            //Database username is now updated
+        }
+    }
+
+
     private IEnumerator LoadUserData()
     {
         //Get the currently logged in user data
@@ -335,6 +354,7 @@ public class FirebaseManager : MonoBehaviour
 
             PlayerPrefs.SetInt("prefTotalMoney", int.Parse(snapshot.Child("prefTotalMoney").Value.ToString()));
             PlayerPrefs.SetInt("prefScore", int.Parse(snapshot.Child("prefScore").Value.ToString()));
+    
 
         }
     }
@@ -362,7 +382,7 @@ public class FirebaseManager : MonoBehaviour
             //Loop through every users UID
             foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
             {
-                string username = "username";
+                string username = childSnapshot.Child("username").Value.ToString();
                 int highScore = int.Parse(childSnapshot.Child("prefScore").Value.ToString());
 
                 // //Instantiate new scoreboard elements
@@ -375,6 +395,8 @@ public class FirebaseManager : MonoBehaviour
         }
     
     }
+
+  
 
 
 }
