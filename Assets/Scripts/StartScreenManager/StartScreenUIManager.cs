@@ -19,6 +19,8 @@ public class StartScreenUIManager : MonoBehaviour
 
     public GameObject shoppingUI;
 
+    public GameObject leaderBoardUI;
+
     public Button loginButton;
 
     public Button logoutButton;
@@ -26,6 +28,8 @@ public class StartScreenUIManager : MonoBehaviour
     public Button syncButton;
 
     public Button shopButton;
+
+    public Button lbButton;
 
 
     public TMP_Text WelcomeText;
@@ -59,6 +63,7 @@ public class StartScreenUIManager : MonoBehaviour
         registerUI.SetActive(false);
         settingsUI.SetActive(false);
         shoppingUI.SetActive(false);
+        leaderBoardUI.SetActive(false);
     }
 
 
@@ -87,6 +92,14 @@ public class StartScreenUIManager : MonoBehaviour
 
     }
 
+     public void leaderBoardScreen()
+    {
+        ClearScreen();
+        leaderBoardUI.SetActive(true);
+        // SceneManager.LoadScene("ShoppingSystem");
+
+    }
+
 
     public void StartScreen()
     {
@@ -109,6 +122,7 @@ public class StartScreenUIManager : MonoBehaviour
             loginButton.interactable = false;
             logoutButton.interactable = true;
             syncButton.interactable = true;
+            lbButton.interactable = true;
         }
         else{
             WelcomeText.text =  "You are playing as Anonymous";
@@ -116,6 +130,7 @@ public class StartScreenUIManager : MonoBehaviour
             loginButton.interactable = true;
             logoutButton.interactable = false;
             syncButton.interactable = false;
+            lbButton.interactable = false;
         }
         TotalMoneyText.text = "Total Money: " + PlayerPrefs.GetInt("prefTotalMoney").ToString();
         HighScoreText.text = "Highscore: " + PlayerPrefs.GetInt("prefScore").ToString() + " m";

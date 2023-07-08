@@ -3,7 +3,11 @@ guid: abfdbee10feec2843bce3f160e76430f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - usernameLoginField: {instanceID: 0}
+  - usernameRegisterField: {instanceID: 0}
+  - scoreElement: {instanceID: 0}
+  - scoreboardContent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
