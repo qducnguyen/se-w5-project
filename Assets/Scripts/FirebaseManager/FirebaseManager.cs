@@ -5,6 +5,7 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Auth;
 using TMPro;
+using System.Linq;
 
 public class FirebaseManager : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class FirebaseManager : MonoBehaviour
     //Register variables
     [Header("Register")]
     public TMP_InputField usernameRegisterField;
+
+
+    public GameObject scoreElement;
+    public Transform scoreboardContent;
 
 
     private const string EMAIL_ADDRESS = "w5.com";
@@ -59,19 +64,10 @@ public class FirebaseManager : MonoBehaviour
     }
     private void InitializeFirebase()
     {
-        // Debug.Log("Setting up Firebase");
-        //Set the authentication instance object
         auth = FirebaseAuth.DefaultInstance;
         DBreference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        // For Testing
-        // if (auth.CurrentUser != null){
-        //     auth.SignOut();
-        // }
-
-
         auth.StateChanged += AuthStateChanged;
-
 
     }
 
@@ -138,6 +134,10 @@ public class FirebaseManager : MonoBehaviour
         Debug.Log("Success Synchronisation!");
     }
 
+    public void ScoreboardButton(){
+        StartCoroutine(LoadScoreboardData()); 
+    }
+
 
     private IEnumerator Login(string _username)
     {
@@ -186,7 +186,7 @@ public class FirebaseManager : MonoBehaviour
             
             StartCoroutine(LoadUserData());
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.25f);
             StartScreenUIManager.instance.UpdateUserInformation(User);
             StartScreenUIManager.instance.StartScreen();
 
@@ -268,7 +268,7 @@ public class FirebaseManager : MonoBehaviour
                         //Now return to login screen
                         auth.SignOut();
 
-                        yield return new WaitForSeconds(1);
+                        yield return new WaitForSeconds(0.25f);
 
                         StartScreenUIManager.instance.UpdateUserInformation(User);
                         StartScreenUIManager.instance.LoginScreen();
@@ -338,4 +338,43 @@ public class FirebaseManager : MonoBehaviour
 
         }
     }
+
+
+    private IEnumerator LoadScoreboardData()
+    {
+        var DBTask = DBreference.Child("users").OrderByChild("prefScore").GetValueAsync();
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null){
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else{
+
+            DataSnapshot snapshot = DBTask.Result;
+
+            //Destroy any existing scoreboard elements
+            foreach (Transform child in scoreboardContent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            //Loop through every users UID
+            foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
+            {
+                string username = "username";
+                int highScore = int.Parse(childSnapshot.Child("prefScore").Value.ToString());
+
+                // //Instantiate new scoreboard elements
+                GameObject scoreboardElement = Instantiate(scoreElement, scoreboardContent);
+                scoreboardElement.GetComponent<ScoreElement>().NewScoreElement(username, highScore);
+            }
+
+            //Go to scoareboard screen
+            StartScreenUIManager.instance.leaderBoardScreen();
+        }
+    
+    }
+
+
 }
