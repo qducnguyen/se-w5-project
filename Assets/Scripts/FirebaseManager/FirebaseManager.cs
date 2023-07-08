@@ -88,7 +88,7 @@ public class FirebaseManager : MonoBehaviour
     // Handle removing subscription and reference to the Auth instance.
     // Automatically called by a Monobehaviour after Destroy is called on it.
     // Original Version OnDestroy()
-    private void OnDisable() {
+    private void OnDestroy() {
         auth.StateChanged -= AuthStateChanged;
         auth = null;
         DBreference = null;
@@ -130,7 +130,7 @@ public class FirebaseManager : MonoBehaviour
 
         StartCoroutine(UpdateUserTotalMoney());
         StartCoroutine(UpdateUserHighScore());
-        StartCoroutine(UpdateUsernameDatabase(User.DisplayName));
+        StartCoroutine(UpdateUsernameDatabase());
 
         Debug.Log("Success Synchronisation!");
     }
@@ -312,10 +312,10 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateUsernameDatabase(string _username)
+    private IEnumerator UpdateUsernameDatabase()
     {
         //Set the currently logged in user username in the database
-        var DBTask = DBreference.Child("users").Child(User.UserId).Child("username").SetValueAsync(_username);
+        var DBTask = DBreference.Child("users").Child(User.UserId).Child("username").SetValueAsync(auth.CurrentUser.DisplayName);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 

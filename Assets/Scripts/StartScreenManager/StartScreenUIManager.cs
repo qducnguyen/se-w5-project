@@ -94,7 +94,12 @@ public class StartScreenUIManager : MonoBehaviour
 
      public void leaderBoardScreen()
     {
-        ClearScreen();
+        loginUI.SetActive(false);
+        registerUI.SetActive(false);
+        settingsUI.SetActive(false);
+        shoppingUI.SetActive(false);
+
+        
         leaderBoardUI.SetActive(true);
 
     }
@@ -102,9 +107,10 @@ public class StartScreenUIManager : MonoBehaviour
 
     public void StartScreen()
     {
-        UpdateUserInformation(FirebaseManager.User);
         ClearScreen();
         startScreenUI.SetActive(true);
+        UpdateUserInformation(FirebaseManager.User);
+
     }
 
     public void StartGame()
