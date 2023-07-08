@@ -96,7 +96,6 @@ public class StartScreenUIManager : MonoBehaviour
     {
         ClearScreen();
         leaderBoardUI.SetActive(true);
-        // SceneManager.LoadScene("ShoppingSystem");
 
     }
 
