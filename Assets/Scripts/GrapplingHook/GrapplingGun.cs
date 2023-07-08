@@ -35,6 +35,9 @@ public class GrapplingGun : MonoBehaviour
     [SerializeField] private bool hasMaxDistance = false;
     [SerializeField] private float maxDistnace = 20;
 
+    [Header("Sound:")]
+    [SerializeField] private AudioSource grappleSound;
+
     private enum LaunchType
     {
         Transform_Launch,
@@ -176,6 +179,7 @@ public class GrapplingGun : MonoBehaviour
 
     public void Grapple()
     {
+        grappleSound.Play();
         m_springJoint2D.autoConfigureDistance = false;
         
         if (!launchToPoint && !autoConfigureDistance)
