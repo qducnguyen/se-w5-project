@@ -9,8 +9,10 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] private TMP_Text statsText;
     [SerializeField] private Player player;
+    [SerializeField] private GameObject hook;
 
     PlayerCollision collision;
+    HookCollision fighting;
 
     private int distance = 0;
 
@@ -23,6 +25,7 @@ public class ScoreManager : MonoBehaviour
     private void Awake() {
         Instance = this;
         collision = player.GetComponent<PlayerCollision>();
+        fighting = hook.GetComponent<HookCollision>();
 
     }
     void Start()
@@ -37,7 +40,7 @@ public class ScoreManager : MonoBehaviour
             distance = Mathf.FloorToInt(player.distance);
         }
 
-        money = collision.moneyGet;
+        money = collision.moneyGet + fighting.moneyGet;
         statsText.text = distance + " m\nMoney " + money;
     }
 

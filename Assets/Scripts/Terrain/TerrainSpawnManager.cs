@@ -11,16 +11,14 @@ public class TerrainSpawnManager : MonoBehaviour
     [SerializeField] private float xMargin;
     [SerializeField] private GameObject[] terrainsPrefabs;
     [SerializeField] private float spawnDistanceMax  = 10f;
+    [SerializeField] private int timeFrames;
     private float checkpointyPosition;
     private Vector3 spawnPosition;
     private GameObject terrainToSpawn;
     private int countLimit;
 
-    public List<TerrainType.TerrainTypes> currentTerrain = new List<TerrainType.TerrainTypes>();
-
     public TerrainType.TerrainTypes terrainType;
 
-    public int countBase = 0;
 
     private void Awake() {
         Instance = this;
@@ -35,6 +33,7 @@ public class TerrainSpawnManager : MonoBehaviour
             checkpointyPosition = spawnLine.position.y;
             SpawnTerrain();
         }
+        timeFrames = Time.frameCount;
     }
 
     private void SpawnTerrain()
@@ -42,9 +41,10 @@ public class TerrainSpawnManager : MonoBehaviour
         countLimit = TerrainCountManager.Instance.countObstacle + TerrainCountManager.Instance.countMonster;
 
         // limit randomly spawned entities according to the number of time frames
-        if (((Time.frameCount > 1e3 ) && (countLimit > 2))      // first 20s: easy
-            || ((Time.frameCount > 1e4) && (countLimit > 3))    // 21s-200s: immediate
-            || ((Time.frameCount > 1e5) && (countLimit > 4)))   // after 200s: difficult
+        if ( ((Time.frameCount < 1e5 ) && (countLimit > 1))                                 // easy
+            || ((Time.frameCount > 1e5 ) && (Time.frameCount < 1e7) && (countLimit > 2))    // immediate
+            || ((Time.frameCount > 1e7) && (Time.frameCount < 1e9) && (countLimit > 3))     // difficult
+            || ((Time.frameCount > 1e9) && (countLimit > 4)))                               // expert
         {
             terrainToSpawn = terrainsPrefabs[Random.Range(0, 2)];
         }
@@ -57,7 +57,6 @@ public class TerrainSpawnManager : MonoBehaviour
         Instantiate(terrainToSpawn, spawnPosition, Quaternion.identity, terrain);
 
         terrainType = terrainToSpawn.GetComponent<TerrainType>().terrainType;
-        Debug.Log(terrainType);
 
 
         switch (terrainType)
