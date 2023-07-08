@@ -61,6 +61,9 @@ public class GrapplingGun : MonoBehaviour
     [SerializeField] private float timeout = 0.4f;
     private float timeoutCount;
 
+    [SerializeField] private float grapplingTime = 3.0f;
+    [SerializeField] private float grapplingTimeCount;
+
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
     private  GameObject objectHitted;
@@ -83,12 +86,43 @@ public class GrapplingGun : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && timeoutCount >= timeout)
-        {
-            SetGrapplePoint();
+          // Timeout checkout 
+        if (grappleRope.enabled){
+            timeoutCount = 0;
+            grapplingTimeCount += Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.Mouse0))
+        else{
+            timeoutCount += Time.deltaTime;
+            grapplingTimeCount = 0f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) 
+            && !grappleRope.enabled
+            && timeoutCount >= timeout)
         {
+            Debug.Log("Hello in Get Key Down");
+            SetGrapplePoint();
+
+        }
+
+        else if ((Input.GetKeyDown(KeyCode.Mouse0) || grapplingTime <= grapplingTimeCount)  
+            && grappleRope.enabled )
+        {
+            Debug.Log("Hello in Get Key Down and when grapply Rope enabled");
+
+            grappleRope.enabled = false;
+            m_springJoint2D.enabled = false;
+
+            if(launchType == LaunchType.Transform_Launch)
+            {                
+                RbPlayer.gravityScale = 1;
+                // player.gravity = init_gravity;
+            }
+        }
+
+        else if (grappleRope.enabled)
+        {
+            Debug.Log("Hello in Get Key");
             if (grappleRope.enabled)
             { 
                 RotateGun(grapplePoint, false);
@@ -109,29 +143,16 @@ public class GrapplingGun : MonoBehaviour
                 }  
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            grappleRope.enabled = false;
-            m_springJoint2D.enabled = false;
 
-            if(launchType == LaunchType.Transform_Launch)
-            {                
-                RbPlayer.gravityScale = 1;
-                // player.gravity = init_gravity;
-            }
-        }
+        
         else
         {
+            // Debug.Log("Hello in other keys");
             Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
             RotateGun(mousePos, true);
         }
-
-        if (grappleRope.enabled){
-            timeoutCount = 0;
-        }
-        else{
-            timeoutCount += Time.deltaTime;
-        }
+        
+      
     }
 
 

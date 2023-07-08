@@ -34,7 +34,7 @@ public class FinishGameManager : MonoBehaviour
         }
 
         int moneyMade = MoneyManager.Instance.GetMoneyAndSaveMoney();
-        moneyText.text = "Money: " + moneyMade;
+        moneyText.text = "Total Money: " + moneyMade;
     }
 
     public void RestartGameButton()
