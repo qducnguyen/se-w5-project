@@ -100,7 +100,7 @@ public class GrapplingGun : MonoBehaviour
             && !grappleRope.enabled
             && timeoutCount >= timeout)
         {
-            Debug.Log("Hello in Get Key Down");
+            // Debug.Log("Hello in Get Key Down");
             SetGrapplePoint();
 
         }
@@ -108,7 +108,7 @@ public class GrapplingGun : MonoBehaviour
         else if ((Input.GetKeyDown(KeyCode.Mouse0) || grapplingTime <= grapplingTimeCount)  
             && grappleRope.enabled )
         {
-            Debug.Log("Hello in Get Key Down and when grapply Rope enabled");
+            // Debug.Log("Hello in Get Key Down and when grapply Rope enabled");
 
             grappleRope.enabled = false;
             m_springJoint2D.enabled = false;
@@ -122,7 +122,7 @@ public class GrapplingGun : MonoBehaviour
 
         else if (grappleRope.enabled)
         {
-            Debug.Log("Hello in Get Key");
+            // Debug.Log("Hello in Get Key");
             if (grappleRope.enabled)
             { 
                 RotateGun(grapplePoint, false);

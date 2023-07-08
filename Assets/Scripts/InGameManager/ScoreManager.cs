@@ -12,7 +12,9 @@ public class ScoreManager : MonoBehaviour
 
     PlayerCollision collision;
 
-    private int distance;
+    private int distance = 0;
+
+    private float maxDistance = 0f;
     private int money;
 
     public static ScoreManager Instance;
@@ -29,9 +31,13 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        distance = Mathf.FloorToInt(player.distance);
+
+        if (player.distance > maxDistance){
+            maxDistance = player.distance;
+            distance = Mathf.FloorToInt(player.distance);
+        }
+
         money = collision.moneyGet;
-        
         statsText.text = distance + " m\nMoney " + money;
     }
 
