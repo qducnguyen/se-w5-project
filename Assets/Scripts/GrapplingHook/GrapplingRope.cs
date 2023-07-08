@@ -10,6 +10,10 @@ public class GrapplingRope : MonoBehaviour
     [SerializeField] private int percision = 20;
     [Range(0, 20)] [SerializeField] private float straightenLineSpeed = 5;
 
+    [Header("Transform Ref:")]
+    public Transform gunHolder;
+    public Transform hook;
+
     [Header("Rope Animation Settings:")]
     public AnimationCurve ropeAnimationCurve;
     [Range(0.01f, 4)] [SerializeField] private float StartWaveSize = 2;
@@ -103,6 +107,7 @@ public class GrapplingRope : MonoBehaviour
             Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position, targetPosition, ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed);
 
             m_lineRenderer.SetPosition(i, currentPosition);
+            hook.position = currentPosition;
         }
     }
 
