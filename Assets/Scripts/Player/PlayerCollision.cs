@@ -24,6 +24,7 @@ public class PlayerCollision : MonoBehaviour
             case TerrainType.TerrainTypes.money:
                 collectSound.Play();
                 moneyGet += 1;
+                TerrainCountManager.Instance.countMoney -= 1;
                 MoneyManager.Instance.AddMoney(1);
                 Destroy(collision.gameObject);
                 break;
