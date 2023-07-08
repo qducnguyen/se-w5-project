@@ -45,4 +45,9 @@ public class StartScreenMoneyManager : MonoBehaviour
         playerMoney = PlayerPrefs.GetInt(preftotalMoney);
         moneyText.text = "Money: " + playerMoney;
     }
+
+    public void UpdateMoney(){
+        playerMoney = PlayerPrefs.GetInt(preftotalMoney);
+        moneyText.text = "Money: " + playerMoney;
+    }
 }
