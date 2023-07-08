@@ -57,7 +57,6 @@ public class TerrainSpawnManager : MonoBehaviour
         Instantiate(terrainToSpawn, spawnPosition, Quaternion.identity, terrain);
 
         terrainType = terrainToSpawn.GetComponent<TerrainType>().terrainType;
-        Debug.Log(terrainType);
 
 
         switch (terrainType)
