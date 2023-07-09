@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: level4
   m_EditorClassIdentifier: 
   skinID: 3
-  skinSprite: {fileID: 21300000, guid: 57dc7cc9ad07647819e1cb5f6f33f3a4, type: 3}
+  skinSprite: {fileID: 21300000, guid: 787f10fc2cbd042d998ddf46bd2a27bc, type: 3}
   skinPrice: 200
