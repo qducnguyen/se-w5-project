@@ -87,6 +87,7 @@ public class StartScreenUIManager : MonoBehaviour
      public void ShoppingScreen()
     {
         ClearScreen();
+
         shoppingUI.SetActive(true);
         // SceneManager.LoadScene("ShoppingSystem");
 
@@ -141,5 +142,7 @@ public class StartScreenUIManager : MonoBehaviour
         HighScoreText.text = "Highscore: " + PlayerPrefs.GetInt("prefScore").ToString() + " m";
 
     }
+
+
 
 }

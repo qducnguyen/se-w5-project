@@ -11,10 +11,15 @@ public class StartScreenMoneyManager : MonoBehaviour
 
     public const string preftotalMoney = "prefTotalMoney";
 
+    private const string skinPref = "skinPref_";
+
+    public string[] SkinIDs = {"level1", "level2", "level3", "level4"};
+
     private void Awake()
     {
         Instance = this;
         playerMoney = PlayerPrefs.GetInt(preftotalMoney);
+        
     }
 
     private void Start() 
