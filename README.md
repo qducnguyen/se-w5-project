@@ -22,7 +22,7 @@
 
 ### Installation 
 #### Users:
-- For Android users:  ``.apk``  is available in [here](https://l.messenger.com/l.php?u=https%3A%2F%2Fhusteduvn-my.sharepoint.com%2F%3Au%3A%2Fg%2Fpersonal%2Fduc_lh204874_sis_hust_edu_vn%2FEctWbNYIiy1Gm8zWBEzq9k0B-ZcsbXNsIlb3F-IFK9BeOg%3Fe%3DYqwTJY&h=AT0S-P9P0UHTpWZzrI2jVTb301xiR_vhGy6sa5OFmFQne3vGhBKzD9Gr_oWK083uhq-83hVoMAp16Py4-jQCLh--IwGbph6YyDoKWxAt0q_ODQYCQp-Tew6kWiIqQMXSZV4Saw). 
+- For Android users:  ``.apk``  is available in [here](https://husteduvn-my.sharepoint.com/personal/duc_lh204874_sis_hust_edu_vn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fduc%5Flh204874%5Fsis%5Fhust%5Fedu%5Fvn%2FDocuments%2Fhust%2F20222%2F2%2Dsoftware%2Dengineering%2FGrapplefallv1%2E0%2Eapk&parent=%2Fpersonal%2Fduc%5Flh204874%5Fsis%5Fhust%5Fedu%5Fvn%2FDocuments%2Fhust%2F20222%2F2%2Dsoftware%2Dengineering&ga=1). 
 - For IOS users: Sorry, there is no publicly available version, please contact the authors for more information.
 
 #### Developer:
