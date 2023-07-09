@@ -47,8 +47,6 @@ public class SkinInShop : MonoBehaviour
         if (PlayerPrefs.GetInt(skinPref + skinInfo._skinID.ToString()) == 1)
         {
             isSkinUnlocked = true;
-            
-            Debug.Log(PlayerPrefs.GetString(skinPref, SkinInfo.SkinIDs.level1.ToString()));
 
             if (PlayerPrefs.GetString(skinPref, SkinInfo.SkinIDs.level1.ToString()) == skinInfo._skinID.ToString()){
                 SkinManager.Instance.EquipSkin(this);
