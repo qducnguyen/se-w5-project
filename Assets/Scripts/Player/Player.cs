@@ -8,16 +8,17 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rb2d;
 
-    [Header("Scaling Values for Gravity")]
-    [SerializeField] private float scalingMultiplier = 1.001f;
-    [SerializeField] private float timerMax = 6f;
-    [SerializeField] private float scaledTimerMax = 2f;
+    [Header("Scaling Difficulty for Gravity")]
+    [SerializeField] private float scalingMultiplier;
+    [SerializeField] private float timerMax;
+    [SerializeField] private float scaledTimerMax;
     [SerializeField] private float gravity;
     [SerializeField] private float scaledGravity;
     [SerializeField] private bool maxGravityReached;
 
     private void Awake() {
-        rb2d = GetComponent<Rigidbody2D>();  
+        rb2d = GetComponent<Rigidbody2D>(); 
+        // Difficult Scaling 
         gravity = rb2d.gravityScale;
         scaledGravity = timerMax / scaledTimerMax * gravity; 
     }

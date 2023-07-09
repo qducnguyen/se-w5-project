@@ -5,7 +5,6 @@ using UnityEngine;
 public class FinishLine : MonoBehaviour
 {
     public static FinishLine Instance;
-    public GameObject detroyedObject;
 
     private void Awake() {
         Instance = this;
