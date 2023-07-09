@@ -99,7 +99,10 @@ public class FirebaseManager : MonoBehaviour
     // Automatically called by a Monobehaviour after Destroy is called on it.
     // Original Version OnDestroy()
     private void OnDestroy() {
-        this.auth.StateChanged -= AuthStateChanged;
+        if (this.auth != null){
+            this.auth.StateChanged -= AuthStateChanged;
+        }
+
         this.auth = null;
         this.DBreference = null;
     }
@@ -138,11 +141,15 @@ public class FirebaseManager : MonoBehaviour
     public void SyncButton()
     {
 
-        StartCoroutine(UpdateUserTotalMoney());
-        StartCoroutine(UpdateUserHighScore());
-        StartCoroutine(UpdateUsernameDatabase());
-        StartCoroutine(UpdateUserSkin());
+        // StartCoroutine(UpdateUserTotalMoney());
+        // StartCoroutine(UpdateUserHighScore());
+        // StartCoroutine(UpdateUsernameDatabase());
+        // StartCoroutine(UpdateUserSkin());
 
+
+        StartCoroutine(UpdateUserData());
+
+        
         Debug.Log("Success Synchronisation!");
     }
 
@@ -301,6 +308,26 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
+
+    private IEnumerator UpdateUserData(){
+
+        UserData userdata = new UserData(auth.CurrentUser.DisplayName);
+        string json = JsonUtility.ToJson(userdata);
+
+        var DBTask = DBreference.Child("users").Child(User.UserId).SetRawJsonValueAsync(json);
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            //Database username is now updated
+        }
+
+    }
     private IEnumerator UpdateUserTotalMoney(){
         var DBTask = DBreference.Child("users").Child(User.UserId).Child("prefTotalMoney").SetValueAsync(PlayerPrefs.GetInt("prefTotalMoney"));
 
@@ -330,7 +357,6 @@ public class FirebaseManager : MonoBehaviour
             //Database username is now updated
         }
     }
-
 
     private IEnumerator UpdateUserSkin(){
 
@@ -408,7 +434,10 @@ public class FirebaseManager : MonoBehaviour
 
     private IEnumerator LoadScoreboardData()
     {
-        var DBTask = DBreference.Child("users").OrderByChild("prefScore").GetValueAsync();
+        var DBTask = DBreference.Child("users").
+        OrderByChild("prefScore").
+        LimitToFirst(20).
+        GetValueAsync();
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -441,3 +470,31 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 }
+ class UserData{
+            public int prefTotalMoney;
+            public int prefScore;
+
+            public string username;
+
+            public int skinPref_level1;
+            
+            public int skinPref_level2;
+            public int skinPref_level3;
+
+            public int skinPref_level4;
+
+            public string skinPref_;
+
+            public UserData(string username){
+                this.prefTotalMoney = PlayerPrefs.GetInt("prefTotalMoney", 0);
+                this.prefScore = PlayerPrefs.GetInt("prefScore", 0);
+                this.skinPref_level1 = PlayerPrefs.GetInt("skinPref_level1", 0);
+                this.skinPref_level2 = PlayerPrefs.GetInt("skinPref_level2", 0);
+                this.skinPref_level3 = PlayerPrefs.GetInt("skinPref_level3", 0);
+                this.skinPref_level4 = PlayerPrefs.GetInt("skinPref_level4", 0);
+
+                this.skinPref_      = PlayerPrefs.GetString("skinPref_", "level1");
+
+                this.username = username;
+            }
+        }
