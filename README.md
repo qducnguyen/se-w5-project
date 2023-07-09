@@ -4,10 +4,17 @@
 ---
 ### Demonstration
 
-<img src="figures/start-game.png" alt="Start Game Screen" style="height: 400px; width:200px;">
-<img src="figures/in-game.png" alt="Start Game Screen" style="height: 400px; width:200px;">
-<img src="figures/game-over.png" alt="Start Game Screen" style="height: 400px; width:200px;">
-<img src="figures/leaderboard.png" alt="Start Game Screen" style="height: 400px; width:200px;">
+<p>
+    <img src="figures/start-game.png" alt="Start Game Screen" style="height: 400px; width:200px;" hspace="20" >
+    <img src="figures/in-game.png" alt="In Game Screen" style="height: 400px; width:200px;">
+</p>
+
+
+<p>
+    <img src="figures/game-over.png" alt="Game Over Screen" style="height: 400px; width:200px;" hspace="20">
+    <img src="figures/leaderboard.png" alt="LeaderBoard Screen" style="height: 400px; width:200px;">
+
+</p>
 
 --- 
 
@@ -15,7 +22,7 @@
 
 ### Installation 
 #### Users:
-- For Android users,  ``.apk`` version is available at ... . 
+- For Android users,  ``.apk`` version is available in [here](https://l.messenger.com/l.php?u=https%3A%2F%2Fhusteduvn-my.sharepoint.com%2F%3Au%3A%2Fg%2Fpersonal%2Fduc_lh204874_sis_hust_edu_vn%2FEctWbNYIiy1Gm8zWBEzq9k0B-ZcsbXNsIlb3F-IFK9BeOg%3Fe%3DYqwTJY&h=AT0S-P9P0UHTpWZzrI2jVTb301xiR_vhGy6sa5OFmFQne3vGhBKzD9Gr_oWK083uhq-83hVoMAp16Py4-jQCLh--IwGbph6YyDoKWxAt0q_ODQYCQp-Tew6kWiIqQMXSZV4Saw). 
 - For IOS users, there is no publicly available version.
 
 #### Developer:
