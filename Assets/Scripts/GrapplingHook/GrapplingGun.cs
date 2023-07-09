@@ -75,7 +75,7 @@ public class GrapplingGun : MonoBehaviour
     [SerializeField] private float grapplingTimeMonster = 0.1f;
     private float grapplingTimeMonsterCount;
 
-    public bool isGrapplingMonster;
+    [HideInInspector] public bool isGrapplingMonster;
 
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
@@ -84,16 +84,12 @@ public class GrapplingGun : MonoBehaviour
     private Touch touch;
 
     private void Awake() {
-        // player = GameObject.Find("Player").GetComponent<Player>();
-        // RbPlayer = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         Instance = this;
     }
 
     private void Start()
     {
 
-        // init_gravity = player.gravity;
-        // RbPlayer.gravityScale = 0;
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         isGrapplingMonster = false;
@@ -146,7 +142,6 @@ public class GrapplingGun : MonoBehaviour
             if(launchType == LaunchType.Transform_Launch)
             {                
                 RbPlayer.gravityScale = 1;
-                // player.gravity = init_gravity;
             }
         }
 
