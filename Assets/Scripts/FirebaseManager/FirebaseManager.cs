@@ -21,11 +21,15 @@ public class FirebaseManager : MonoBehaviour
     [Header("Login")]
     public TMP_InputField usernameLoginField;
 
+    public TMP_Text warningLoginText;
+    public TMP_Text confirmLoginText;
+
     //Register variables
     [Header("Register")]
     public TMP_InputField usernameRegisterField;
+    public TMP_Text warningRegisterText;
 
-
+    [Header("LeaderBoard")]
     public GameObject scoreElement;
     public Transform scoreboardContent;
 
@@ -176,6 +180,7 @@ public class FirebaseManager : MonoBehaviour
                     break;
             }
             Debug.LogWarning(message);
+            warningLoginText.text = message;
         }
         else
         {
@@ -184,13 +189,15 @@ public class FirebaseManager : MonoBehaviour
             User = LoginTask.Result.User;
             // Debug.LogFormat("User signed in successfully: {0} ", User.DisplayName);
             // Debug.Log("Logged In");
+            warningLoginText.text = "";
+            confirmLoginText.text = "Logged in";
             
             StartCoroutine(LoadUserData());
 
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.5f);
             StartScreenUIManager.instance.UpdateUserInformation(User);
             StartScreenUIManager.instance.StartScreen();
-
+            confirmLoginText.text = "";
 
             ClearLoginFields();
             ClearRegisterFields();
@@ -200,10 +207,13 @@ public class FirebaseManager : MonoBehaviour
 
     private IEnumerator Register(string _username)
     {
+        warningLoginText.text = "" ;
+
         if (_username == "")
         {
             //If the username field is blank show a warning
             Debug.LogWarning("Missing Username");
+            warningRegisterText.text = "Missing Username";
         }
         else 
         {
@@ -237,6 +247,7 @@ public class FirebaseManager : MonoBehaviour
                         break;
                 }
                 Debug.LogWarning(message);
+                warningRegisterText.text = message;
             }
             else
             {
@@ -273,6 +284,7 @@ public class FirebaseManager : MonoBehaviour
 
                         StartScreenUIManager.instance.UpdateUserInformation(User);
                         StartScreenUIManager.instance.LoginScreen();
+                        warningRegisterText.text = "";
                         ClearLoginFields();
                         ClearRegisterFields();
 
