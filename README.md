@@ -1,14 +1,15 @@
-# Introduction to Software Engineering - W5
+# Introduction to Software Engineering - Group W5
 ## Vertical Platformer Game
 
 ---
 ### Demonstration
 
-<img src="" alt="Demo Image" style="height: 400px; width:647px;">
-
+<img src="figures/start-game.png" alt="Start Game Screen" style="height: 400px; width:200px;">
+<img src="figures/in-game.png" alt="Start Game Screen" style="height: 400px; width:200px;">
+<img src="figures/game-over.png" alt="Start Game Screen" style="height: 400px; width:200px;">
+<img src="figures/leaderboard.png" alt="Start Game Screen" style="height: 400px; width:200px;">
 
 --- 
-- *Video link:  *
 
 
 
