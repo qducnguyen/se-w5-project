@@ -6,6 +6,7 @@ public class SkinInShop : MonoBehaviour
 {
     [SerializeField] private SkinInfo skinInfo;
     public SkinInfo _skinInfo { get { return skinInfo; } }
+    
 
     [SerializeField] private TextMeshProUGUI buttonText;
     [SerializeField] private Image skinImage;
@@ -13,38 +14,53 @@ public class SkinInShop : MonoBehaviour
     [SerializeField] private bool isSkinUnlocked;
     [SerializeField] private bool isFreeSkin;
 
+    private const string skinPref = "skinPref_";
     private void Awake()
     {
         skinImage.sprite = skinInfo._skinSprite;
 
+        
         if (isFreeSkin)
         {
             if (StartScreenMoneyManager.Instance.TryRemoveMoney(0))
             {
-                PlayerPrefs.SetInt(skinInfo._skinID.ToString(), 1);
+                PlayerPrefs.SetInt(skinPref + skinInfo._skinID.ToString(), 1);
             }
         }
 
-        // initial skin
-        if (PlayerPrefs.GetInt(skinInfo._skinID.ToString()) == 1)
-        {
-            isSkinUnlocked = true;
-            buttonText.text = "Purchased";
-        }
+        // // initial skin
+        // if (PlayerPrefs.GetInt(skinPref + skinInfo._skinID.ToString()) == 1)
+        // {
+        //     isSkinUnlocked = true;
+        //     buttonText.text = "Purchased";
+        // }
 
-        IsSkinUnlocked();
     }
 
-    private void IsSkinUnlocked()
+    private void OnEnable() {
+             IsSkinUnlockedandEquipped();
+   
+    }
+
+    public void IsSkinUnlockedandEquipped()
     {
-        if (PlayerPrefs.GetInt(skinInfo._skinID.ToString()) == 1)
+        if (PlayerPrefs.GetInt(skinPref + skinInfo._skinID.ToString()) == 1)
         {
             isSkinUnlocked = true;
-            buttonText.text = "Purchased";
+            
+            Debug.Log(PlayerPrefs.GetString(skinPref, SkinInfo.SkinIDs.level1.ToString()));
+
+            if (PlayerPrefs.GetString(skinPref, SkinInfo.SkinIDs.level1.ToString()) == skinInfo._skinID.ToString()){
+                SkinManager.Instance.EquipSkin(this);
+            }   
+            else{
+                buttonText.text = "Purchased";
+            }
         }
         else
         {
             buttonText.text = "Buy: " + skinInfo._skinPrice;
+            
         }
     }
 
@@ -60,8 +76,8 @@ public class SkinInShop : MonoBehaviour
             //buy
             if (StartScreenMoneyManager.Instance.TryRemoveMoney(skinInfo._skinPrice))
             {
-                PlayerPrefs.SetInt(skinInfo._skinID.ToString(), 1);
-                IsSkinUnlocked();
+                PlayerPrefs.SetInt(skinPref + skinInfo._skinID.ToString(), 1);
+                IsSkinUnlockedandEquipped();
             }
         }
     }

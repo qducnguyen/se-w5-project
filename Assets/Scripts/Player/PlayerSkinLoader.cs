@@ -1,7 +1,8 @@
 using UnityEngine;
 
 public class PlayerSkinLoader: MonoBehaviour
-{
+{   
+
     [SerializeField] private SpriteRenderer playerSR;
 
     private void Awake() {
@@ -9,4 +10,7 @@ public class PlayerSkinLoader: MonoBehaviour
             playerSR.sprite = SkinManager.equippedSkin;
     }
 
+    private void OnEnable() {
+        
+    }
 }

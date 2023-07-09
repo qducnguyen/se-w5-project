@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SkinManager : MonoBehaviour
 {
     public static SkinManager Instance;
 
-    private const string skinPref = "skinPref";
+    private const string skinPref = "skinPref_";
 
     public static Sprite equippedSkin { get; private set; }
 
@@ -17,6 +18,8 @@ public class SkinManager : MonoBehaviour
     [SerializeField] private List<SkinInShop> skinsInShopPanels = new List<SkinInShop>();//SFD
 
     private Button currentlyEquippedSkinButton;
+
+    private TMP_Text currentlyEquippedSkinText;
 
     private void Awake()
     {
@@ -28,19 +31,18 @@ public class SkinManager : MonoBehaviour
                 skinsInShopPanels.Add(skinInShop);
         }
 
-        EquipPreviousSkin();
+        LoadPreviousSkin();
 
-
-        SkinInShop skinEquippedPanel = Array.Find(skinsInShopPanels.ToArray(), dummyFind => dummyFind._skinInfo._skinSprite == equippedSkin);
-        currentlyEquippedSkinButton = skinEquippedPanel.GetComponentInChildren<Button>();
-        currentlyEquippedSkinButton.interactable = false;
     }
-    
-    private void EquipPreviousSkin()
-    {
-        string lastSkinUsed = PlayerPrefs.GetString(skinPref, SkinInfo.SkinIDs.level1.ToString());
-        SkinInShop skinEquippedPanel = Array.Find(skinsInShopPanels.ToArray(), dummyFind => dummyFind._skinInfo._skinID.ToString() == lastSkinUsed);
-        EquipSkin(skinEquippedPanel);
+
+    private void LoadPreviousSkin(){
+
+        foreach (SkinInShop skinPanel in skinsInShopPanels.ToArray()){
+            if (skinPanel._skinInfo._skinID.ToString() == PlayerPrefs.GetString(skinPref, SkinInfo.SkinIDs.level1.ToString())){
+                equippedSkin = skinPanel._skinInfo._skinSprite;
+            }
+        }
+
     }
 
     public void EquipSkin(SkinInShop skinInfoInShop)
@@ -49,11 +51,17 @@ public class SkinManager : MonoBehaviour
        
         PlayerPrefs.SetString(skinPref, skinInfoInShop._skinInfo._skinID.ToString());
 
-        if (currentlyEquippedSkinButton != null)
-            currentlyEquippedSkinButton.interactable = true;
-
-        currentlyEquippedSkinButton = skinInfoInShop.GetComponentInChildren<Button>();
-        currentlyEquippedSkinButton.interactable = false;
+        skinInfoInShop.GetComponentInChildren<TextMeshProUGUI>().text = "Equipped";
+        skinInfoInShop.GetComponentInChildren<Button>().interactable = false;
+        
+        foreach (SkinInShop skinPanel in skinsInShopPanels.ToArray()){
+            if (skinPanel._skinInfo._skinID.ToString() != skinInfoInShop._skinInfo._skinID.ToString()){
+                    // skinPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Purchased";
+                    skinPanel.GetComponentInChildren<Button>().interactable = true;
+                    skinPanel.IsSkinUnlockedandEquipped();
+            }
+        }
+   
     }
 
 }

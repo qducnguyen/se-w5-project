@@ -7265,6 +7265,11 @@ MonoBehaviour:
   scoreElement: {fileID: 3993797962353574843, guid: 78cd978fe3d2b7c489708856e2b10d4d, type: 3}
   scoreboardContent: {fileID: 1326105775}
   IsInitialized: 0
+  SkinIDs:
+  - level1
+  - level2
+  - level3
+  - level4
 --- !u!4 &1173100024
 Transform:
   m_ObjectHideFlags: 0
@@ -8287,7 +8292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SHOPPPP
+  m_text: SHOPPING
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ca24afa8bb614f829b98995798dc0ad, type: 2}
   m_sharedMaterial: {fileID: 3030937362758368697, guid: 9ca24afa8bb614f829b98995798dc0ad, type: 2}
@@ -9467,6 +9472,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 1786051875}
+  SkinIDs:
+  - level1
+  - level2
+  - level3
+  - level4
 --- !u!4 &1591503101
 Transform:
   m_ObjectHideFlags: 0

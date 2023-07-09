@@ -7,6 +7,7 @@ using Firebase.Auth;
 using TMPro;
 using System.Linq;
 
+
 public class FirebaseManager : MonoBehaviour
 {
     //Firebase variables
@@ -39,6 +40,11 @@ public class FirebaseManager : MonoBehaviour
 
     [HideInInspector] public static FirebaseManager instance;
     [HideInInspector] public bool IsInitialized;
+
+
+    [HideInInspector] private const string skinPref = "skinPref_";
+
+    [HideInInspector] public string[] SkinIDs = {"level1", "level2", "level3", "level4"};
 
 
     void Awake()
@@ -93,9 +99,9 @@ public class FirebaseManager : MonoBehaviour
     // Automatically called by a Monobehaviour after Destroy is called on it.
     // Original Version OnDestroy()
     private void OnDestroy() {
-        auth.StateChanged -= AuthStateChanged;
-        auth = null;
-        DBreference = null;
+        this.auth.StateChanged -= AuthStateChanged;
+        this.auth = null;
+        this.DBreference = null;
     }
 
      public void ClearLoginFields()
@@ -135,6 +141,7 @@ public class FirebaseManager : MonoBehaviour
         StartCoroutine(UpdateUserTotalMoney());
         StartCoroutine(UpdateUserHighScore());
         StartCoroutine(UpdateUsernameDatabase());
+        StartCoroutine(UpdateUserSkin());
 
         Debug.Log("Success Synchronisation!");
     }
@@ -324,6 +331,28 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
+
+    private IEnumerator UpdateUserSkin(){
+
+        foreach (string level in SkinIDs){
+            var DBTaskin = DBreference.Child("users").Child(User.UserId).Child(skinPref + level).SetValueAsync(PlayerPrefs.GetInt(skinPref + level, 0));
+            yield return new WaitUntil(predicate: () => DBTaskin.IsCompleted);
+            if (DBTaskin.Exception != null)
+            {
+            Debug.LogWarning(message: $"Failed to register task with {DBTaskin.Exception}");
+            }
+        }
+
+
+        var DBTask = DBreference.Child("users").Child(User.UserId).Child(skinPref).SetValueAsync(PlayerPrefs.GetString(skinPref, "level1"));
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+        if (DBTask.Exception != null)
+        {
+        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+
+    }
+
     private IEnumerator UpdateUsernameDatabase()
     {
         //Set the currently logged in user username in the database
@@ -366,8 +395,13 @@ public class FirebaseManager : MonoBehaviour
 
             PlayerPrefs.SetInt("prefTotalMoney", int.Parse(snapshot.Child("prefTotalMoney").Value.ToString()));
             PlayerPrefs.SetInt("prefScore", int.Parse(snapshot.Child("prefScore").Value.ToString()));
-    
 
+            foreach (string level in SkinIDs){
+                PlayerPrefs.SetInt(skinPref + level, int.Parse(snapshot.Child(skinPref + level).Value.ToString()));
+            }
+
+            PlayerPrefs.SetString(skinPref, snapshot.Child(skinPref).Value.ToString());
+      
         }
     }
 
