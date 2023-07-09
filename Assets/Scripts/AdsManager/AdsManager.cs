@@ -7,7 +7,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 {
     public static AdsManager Instance;
 
-    public string GAME_ID = "3003912"; 
+    private const string androidGameID = "5327089";
+    private const string iosGameID = "5327088";
+    public string GAME_ID; 
 
     private const string REWARDED_VIDEO_PLACEMENT = "rewardedVideo";
 
@@ -16,10 +18,24 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public delegate void DebugEvent(string msg);
     public static event DebugEvent OnDebugLog;
 
-
-    private void Awake() 
+   private void Awake()
     {
         Instance = this;
+
+        if (Advertisement.isSupported)
+        {
+            if (Application.platform == RuntimePlatform.Android)
+                Debug.Log("Have ads for android on device");
+                GAME_ID = androidGameID;
+
+            if (Application.platform == RuntimePlatform.IPhonePlayer)
+                Debug.Log("Have ads for ios");
+                GAME_ID = iosGameID;
+
+            if (Application.isEditor)
+                Debug.Log("Have ads for android on editor");
+                GAME_ID = androidGameID;
+        }
     }
 
     public void Initialize()

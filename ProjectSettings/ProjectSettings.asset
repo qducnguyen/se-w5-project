@@ -874,11 +874,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 11a918f4-2766-45bb-b26c-da1ae07af8b0
+  cloudProjectId: 627bb7bb-e9ad-4aeb-bc20-f825d46f1c66
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: VerticalPlatformGame
-  organizationId: ducgopher
+  projectName: VerticalPlatformGame (1)
+  organizationId: tranaflee
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
