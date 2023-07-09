@@ -401,7 +401,7 @@ public class FirebaseManager : MonoBehaviour
             }
 
             PlayerPrefs.SetString(skinPref, snapshot.Child(skinPref).Value.ToString());
-      
+            
         }
     }
 
@@ -439,10 +439,5 @@ public class FirebaseManager : MonoBehaviour
             //Go to scoareboard screen
             StartScreenUIManager.instance.leaderBoardScreen();
         }
-    
     }
-
-  
-
-
 }

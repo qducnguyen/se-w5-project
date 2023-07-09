@@ -17,8 +17,9 @@ public class HookCollision : MonoBehaviour
                 collectSound.Play();
                 moneyGet += 3;
                 TerrainCountManager.Instance.countMonster -= 1;
-                MoneyManager.Instance.AddMoney(1);
+                MoneyManager.Instance.AddMoney(3);
                 Destroy(collision.gameObject);
+                GrapplingGun.Instance.isGrapplingMonster = true;
                 break;
 
             case TerrainType.TerrainTypes.money:

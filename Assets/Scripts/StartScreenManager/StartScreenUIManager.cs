@@ -117,6 +117,7 @@ public class StartScreenUIManager : MonoBehaviour
     public void StartGame()
     {
         // ClearScreen();
+        SkinManager.Instance.LoadPreviousSkin();
         SceneManager.LoadScene("InGameScreen");
     }
 

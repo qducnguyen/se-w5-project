@@ -1,7 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class GrapplingGun : MonoBehaviour
-{
+{   
+
+    [HideInInspector] public static GrapplingGun Instance; 
+
     [Header("Scripts Ref:")]
     public GrapplingRope grappleRope;
 
@@ -48,7 +52,10 @@ public class GrapplingGun : MonoBehaviour
     [Header("Launching:")]
     [SerializeField] private bool launchToPoint = true;
     [SerializeField] private LaunchType launchType = LaunchType.Physics_Launch;
-    [SerializeField] private float launchSpeed = 1;
+    [SerializeField] private float launchSpeed = 1f;
+    [SerializeField] private float launchSpeedMonster = 0.5f;
+
+    private float launchSpeedCurrent;
 
     [Header("No Launch To Point")]
     [SerializeField] private bool autoConfigureDistance = false;
@@ -63,7 +70,12 @@ public class GrapplingGun : MonoBehaviour
     private float timeoutCount;
 
     [SerializeField] private float grapplingTime = 3.0f;
-    [SerializeField] private float grapplingTimeCount;
+    private float grapplingTimeCount;
+
+    [SerializeField] private float grapplingTimeMonster = 0.1f;
+    private float grapplingTimeMonsterCount;
+
+    public bool isGrapplingMonster;
 
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
@@ -72,8 +84,9 @@ public class GrapplingGun : MonoBehaviour
     private Touch touch;
 
     private void Awake() {
-        player = GameObject.Find("Player").GetComponent<Player>();
-        RbPlayer = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+        // player = GameObject.Find("Player").GetComponent<Player>();
+        // RbPlayer = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+        Instance = this;
     }
 
     private void Start()
@@ -83,11 +96,26 @@ public class GrapplingGun : MonoBehaviour
         // RbPlayer.gravityScale = 0;
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
+        isGrapplingMonster = false;
 
     }
     private void Update()
-    {
-          // Timeout checkout 
+    {   
+
+        // Timeout monster
+        if (isGrapplingMonster){
+            grapplingTimeMonsterCount += Time.deltaTime;
+            if (grapplingTimeCount >= grapplingTimeMonster){
+                grappleRope.enabled = false;
+                m_springJoint2D.enabled = false;
+                isGrapplingMonster = false;
+            }
+        }
+        else{
+            grapplingTimeMonsterCount = 0;
+        }
+
+        // Timeout base checkout 
         if (grappleRope.enabled){
             timeoutCount = 0;
             grapplingTimeCount += Time.deltaTime;
@@ -174,6 +202,7 @@ public class GrapplingGun : MonoBehaviour
         }
     }
 
+
     void SetGrapplePoint()
     {
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
@@ -182,6 +211,12 @@ public class GrapplingGun : MonoBehaviour
             RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized);
             if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)
             {
+                if (_hit.transform.gameObject.GetComponent<TerrainType>().terrainType == TerrainType.TerrainTypes.monster){
+                    launchSpeedCurrent = launchSpeedMonster;
+                }
+                else{
+                    launchSpeedCurrent = launchSpeed;
+                }
                 if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
                 {
                     if (!isMiddleObject)
@@ -233,7 +268,7 @@ public class GrapplingGun : MonoBehaviour
                     Vector2 firePointDistanceVector = firePoint.position - gunHolder.position;
 
                     m_springJoint2D.distance = firePointDistanceVector.magnitude;
-                    m_springJoint2D.frequency = launchSpeed;
+                    m_springJoint2D.frequency = launchSpeedCurrent;
                     m_springJoint2D.enabled = true;
                     break;
                 case LaunchType.Transform_Launch:
@@ -254,5 +289,4 @@ public class GrapplingGun : MonoBehaviour
             Gizmos.DrawWireSphere(firePoint.position, maxDistnace);
         }
     }
-
 }
