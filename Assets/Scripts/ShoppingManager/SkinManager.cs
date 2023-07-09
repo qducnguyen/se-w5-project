@@ -31,11 +31,10 @@ public class SkinManager : MonoBehaviour
                 skinsInShopPanels.Add(skinInShop);
         }
 
-        LoadPreviousSkin();
 
     }
 
-    private void LoadPreviousSkin(){
+    public void LoadPreviousSkin(){
 
         foreach (SkinInShop skinPanel in skinsInShopPanels.ToArray()){
             if (skinPanel._skinInfo._skinID.ToString() == PlayerPrefs.GetString(skinPref, SkinInfo.SkinIDs.level1.ToString())){
