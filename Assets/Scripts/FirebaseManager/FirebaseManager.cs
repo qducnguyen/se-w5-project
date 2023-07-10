@@ -70,7 +70,7 @@ public class FirebaseManager : MonoBehaviour
     }
 
     private void Start() {
-        StartScreenUIManager.instance.UpdateUserInformation(User);
+        StartScreenUIManager.instance.UpdateUserInformation();
     }
     private void InitializeFirebase()
     {
@@ -88,7 +88,7 @@ public class FirebaseManager : MonoBehaviour
                 Debug.Log("Signed out");
             }
             User = auth.CurrentUser;
-            StartScreenUIManager.instance.UpdateUserInformation(User);
+            StartScreenUIManager.instance.UpdateUserInformation();
             if (signedIn) {
                 Debug.Log("Signed in as " + User.DisplayName + "!");
             }
@@ -209,7 +209,7 @@ public class FirebaseManager : MonoBehaviour
             StartCoroutine(LoadUserData());
 
             yield return new WaitForSeconds(0.5f);
-            StartScreenUIManager.instance.UpdateUserInformation(User);
+            StartScreenUIManager.instance.UpdateUserInformation();
             StartScreenUIManager.instance.StartScreen();
             confirmLoginText.text = "";
 
@@ -296,7 +296,7 @@ public class FirebaseManager : MonoBehaviour
 
                         yield return new WaitForSeconds(0.25f);
 
-                        StartScreenUIManager.instance.UpdateUserInformation(User);
+                        StartScreenUIManager.instance.UpdateUserInformation();
                         StartScreenUIManager.instance.LoginScreen();
                         warningRegisterText.text = "";
                         ClearLoginFields();
@@ -427,6 +427,7 @@ public class FirebaseManager : MonoBehaviour
             }
 
             PlayerPrefs.SetString(skinPref, snapshot.Child(skinPref).Value.ToString());
+            PlayerPrefs.SetString("username",  snapshot.Child("username").Value.ToString());
             
         }
     }

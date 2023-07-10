@@ -110,7 +110,7 @@ public class StartScreenUIManager : MonoBehaviour
     {
         ClearScreen();
         startScreenUI.SetActive(true);
-        UpdateUserInformation(FirebaseManager.User);
+        UpdateUserInformation();
 
     }
 
@@ -122,9 +122,11 @@ public class StartScreenUIManager : MonoBehaviour
     }
 
 
-    public void UpdateUserInformation(FirebaseUser user){
-        if (user != null){
-            WelcomeText.text =  "Welcome " + user.DisplayName + "!";
+    public void UpdateUserInformation(){
+        string username = PlayerPrefs.GetString("username",  "");
+
+        if (username != ""){
+            WelcomeText.text =  "Welcome " + username + "!";
 
             loginButton.interactable = false;
             logoutButton.interactable = true;
