@@ -88,8 +88,8 @@ public class StartScreenUIManager : MonoBehaviour
     {
         ClearScreen();
 
+        StartScreenMoneyManager.Instance.GetMoneyfromPrefs();
         shoppingUI.SetActive(true);
-        // SceneManager.LoadScene("ShoppingSystem");
 
     }
 

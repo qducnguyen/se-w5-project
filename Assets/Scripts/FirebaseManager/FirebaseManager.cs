@@ -86,6 +86,7 @@ public class FirebaseManager : MonoBehaviour
             bool signedIn = User != auth.CurrentUser && auth.CurrentUser != null;
             if (!signedIn && User != null) {
                 Debug.Log("Signed out");
+                PlayerPrefs.SetString("username", "");
             }
             User = auth.CurrentUser;
             StartScreenUIManager.instance.UpdateUserInformation();
@@ -135,16 +136,13 @@ public class FirebaseManager : MonoBehaviour
         ClearLoginFields();
         ClearRegisterFields();
         auth.SignOut();
-        // StartScreenUIManager.instance.UpdateUserInformation(User);
+
+        PlayerPrefs.SetString("username", "");
+
     }
 
     public void SyncButton()
     {
-
-        // StartCoroutine(UpdateUserTotalMoney());
-        // StartCoroutine(UpdateUserHighScore());
-        // StartCoroutine(UpdateUsernameDatabase());
-        // StartCoroutine(UpdateUserSkin());
 
 
         StartCoroutine(UpdateUserData());
@@ -291,11 +289,26 @@ public class FirebaseManager : MonoBehaviour
                     else
                     {
                         //Username is now set
-                        //Now return to login screen
-                        auth.SignOut();
+                        UserData userdata = new UserData(_username);
+                        string json = JsonUtility.ToJson(userdata);
 
+                        var DBTask = DBreference.Child("users").Child(User.UserId).SetRawJsonValueAsync(json);
+
+                        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+                        if (DBTask.Exception != null)
+                        {
+                            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                        }
+                        else
+                        {
+                            //Database username is now updated
+                        }
+
+                        auth.SignOut();
                         yield return new WaitForSeconds(0.25f);
 
+                        //Now return to login screen
                         StartScreenUIManager.instance.UpdateUserInformation();
                         StartScreenUIManager.instance.LoginScreen();
                         warningRegisterText.text = "";
@@ -310,8 +323,7 @@ public class FirebaseManager : MonoBehaviour
 
 
     private IEnumerator UpdateUserData(){
-
-        UserData userdata = new UserData(auth.CurrentUser.DisplayName);
+        UserData userdata = new UserData();
         string json = JsonUtility.ToJson(userdata);
 
         var DBTask = DBreference.Child("users").Child(User.UserId).SetRawJsonValueAsync(json);
@@ -328,74 +340,6 @@ public class FirebaseManager : MonoBehaviour
         }
 
     }
-    private IEnumerator UpdateUserTotalMoney(){
-        var DBTask = DBreference.Child("users").Child(User.UserId).Child("prefTotalMoney").SetValueAsync(PlayerPrefs.GetInt("prefTotalMoney"));
-
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-        if (DBTask.Exception != null)
-        {
-            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        }
-        else
-        {
-            //Database username is now updated
-        }
-    }
-
-    private IEnumerator UpdateUserHighScore(){
-        var DBTask = DBreference.Child("users").Child(User.UserId).Child("prefScore").SetValueAsync(PlayerPrefs.GetInt("prefScore"));
-
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-        if (DBTask.Exception != null)
-        {
-            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        }
-        else
-        {
-            //Database username is now updated
-        }
-    }
-
-    private IEnumerator UpdateUserSkin(){
-
-        foreach (string level in SkinIDs){
-            var DBTaskin = DBreference.Child("users").Child(User.UserId).Child(skinPref + level).SetValueAsync(PlayerPrefs.GetInt(skinPref + level, 0));
-            yield return new WaitUntil(predicate: () => DBTaskin.IsCompleted);
-            if (DBTaskin.Exception != null)
-            {
-            Debug.LogWarning(message: $"Failed to register task with {DBTaskin.Exception}");
-            }
-        }
-
-
-        var DBTask = DBreference.Child("users").Child(User.UserId).Child(skinPref).SetValueAsync(PlayerPrefs.GetString(skinPref, "level1"));
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-        if (DBTask.Exception != null)
-        {
-        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        }
-
-    }
-
-    private IEnumerator UpdateUsernameDatabase()
-    {
-        //Set the currently logged in user username in the database
-        var DBTask = DBreference.Child("users").Child(User.UserId).Child("username").SetValueAsync(auth.CurrentUser.DisplayName);
-
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-        if (DBTask.Exception != null)
-        {
-            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        }
-        else
-        {
-            //Database username is now updated
-        }
-    }
-
 
     private IEnumerator LoadUserData()
     {
@@ -437,7 +381,7 @@ public class FirebaseManager : MonoBehaviour
     {
         var DBTask = DBreference.Child("users").
         OrderByChild("prefScore").
-        LimitToFirst(20).
+        LimitToFirst(30).
         GetValueAsync();
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -459,11 +403,19 @@ public class FirebaseManager : MonoBehaviour
             foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
             {
                 string username = childSnapshot.Child("username").Value.ToString();
-                int highScore = int.Parse(childSnapshot.Child("prefScore").Value.ToString());
+                int highScore;
+                if (childSnapshot.Child("prefScore").Exists){
+                    highScore = int.Parse(childSnapshot.Child("prefScore").Value.ToString());
+                }
+                else{
+                    highScore = 0;
+                }
 
-                // //Instantiate new scoreboard elements
-                GameObject scoreboardElement = Instantiate(scoreElement, scoreboardContent);
-                scoreboardElement.GetComponent<ScoreElement>().NewScoreElement(username, highScore);
+                if (highScore != 0){
+                    GameObject scoreboardElement = Instantiate(scoreElement, scoreboardContent);
+                    scoreboardElement.GetComponent<ScoreElement>().NewScoreElement(username, highScore);
+                }   
+
             }
 
             //Go to scoareboard screen
@@ -486,7 +438,7 @@ public class FirebaseManager : MonoBehaviour
 
             public string skinPref_;
 
-            public UserData(string username){
+            public UserData(){
                 this.prefTotalMoney = PlayerPrefs.GetInt("prefTotalMoney", 0);
                 this.prefScore = PlayerPrefs.GetInt("prefScore", 0);
                 this.skinPref_level1 = PlayerPrefs.GetInt("skinPref_level1", 0);
@@ -496,6 +448,18 @@ public class FirebaseManager : MonoBehaviour
 
                 this.skinPref_      = PlayerPrefs.GetString("skinPref_", "level1");
 
-                this.username = username;
+                this.username = PlayerPrefs.GetString("username");
+            }
+
+            public UserData(string _username){
+                this.prefTotalMoney = 0;
+                this.skinPref_level1 = 0;
+                this.skinPref_level2 = 0;
+                this.skinPref_level3 = 0;
+                this.skinPref_level4 = 0;
+                this.prefScore = 0;
+                this.skinPref_      = "level1";
+
+                this.username = _username;
             }
         }
