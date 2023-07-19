@@ -18,9 +18,15 @@ public class StartScreenMoneyManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        playerMoney = PlayerPrefs.GetInt(preftotalMoney);
+        playerMoney = PlayerPrefs.GetInt(preftotalMoney, 0);
         
     }
+
+    
+    public void GetMoneyfromPrefs(){
+        playerMoney = PlayerPrefs.GetInt(preftotalMoney, 0);
+    }
+
 
     private void Start() 
     {
@@ -47,12 +53,12 @@ public class StartScreenMoneyManager : MonoBehaviour
 
         // TODO
         PlayerPrefs.SetInt(preftotalMoney, playerMoney + 1);
-        playerMoney = PlayerPrefs.GetInt(preftotalMoney);
+        playerMoney = PlayerPrefs.GetInt(preftotalMoney, 0);
         moneyText.text = "Money: " + playerMoney;
     }
 
     public void UpdateMoney(){
-        playerMoney = PlayerPrefs.GetInt(preftotalMoney);
+        playerMoney = PlayerPrefs.GetInt(preftotalMoney, 0);
         moneyText.text = "Money: " + playerMoney;
     }
 }
