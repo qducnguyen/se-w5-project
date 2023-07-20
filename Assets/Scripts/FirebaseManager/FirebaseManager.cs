@@ -91,7 +91,7 @@ public class FirebaseManager : MonoBehaviour
             User = auth.CurrentUser;
             StartScreenUIManager.instance.UpdateUserInformation();
             if (signedIn) {
-                Debug.Log("Signed in as " + User.DisplayName + "!");
+                Debug.Log("Signed in as " + auth.CurrentUser.DisplayName + "!");
             }
         }
     }
@@ -326,7 +326,7 @@ public class FirebaseManager : MonoBehaviour
         UserData userdata = new UserData();
         string json = JsonUtility.ToJson(userdata);
 
-        var DBTask = DBreference.Child("users").Child(User.UserId).SetRawJsonValueAsync(json);
+        var DBTask = DBreference.Child("users").Child(auth.CurrentUser.UserId).SetRawJsonValueAsync(json);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -344,7 +344,7 @@ public class FirebaseManager : MonoBehaviour
     private IEnumerator LoadUserData()
     {
         //Get the currently logged in user data
-        var DBTask = DBreference.Child("users").Child(User.UserId).GetValueAsync();
+        var DBTask = DBreference.Child("users").Child(auth.CurrentUser.UserId).GetValueAsync();
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 

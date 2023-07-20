@@ -1,6 +1,9 @@
 # Introduction to Software Engineering - Group W5
 ## Vertical Platformer Game
 
+The game is similar to a platformer game but vertically. The character will be in a free fall and must find a way to move across vertical platforms using grappling hooks. Besides, players also have to fight monsters and avoid obstacles.
+
+
 ---
 ### Demonstration
 
