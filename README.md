@@ -25,7 +25,7 @@ The game is similar to a platformer game but vertically. The character will be i
 
 ### Installation 
 #### Users:
-- For Android users:  ``.apk``  is available in [here](https://husteduvn-my.sharepoint.com/:u:/g/personal/duc_lh204874_sis_hust_edu_vn/Efi2NNjkm9JMtY8fbrdWyvcB4sLTDJG4iPKHkKtXJQ5dqQ?e=Cqfr2F). 
+- For Android users:  ``.apk``  is available in [here](https://drive.google.com/file/d/1FrbPY7p3_MOtXq_UIV3P5Il3hs0dGQUR/view?usp=drive_link). 
 - For IOS users: Sorry, there is no publicly available version, please contact the authors for more information.
 
 #### Developer:
