@@ -38,8 +38,8 @@ public class SkinInShop : MonoBehaviour
     }
 
     private void OnEnable() {
-             IsSkinUnlockedandEquipped();
-   
+            IsSkinUnlockedandEquipped();
+            
     }
 
     public void IsSkinUnlockedandEquipped()
